@@ -35,11 +35,19 @@ jobs:
         working-directory: rustdesk
         run: bash "$GITHUB_WORKSPACE/branding-repo/apply-branding.sh" "$GITHUB_WORKSPACE/branding-repo/branding"
 
-      - name: Install build runtime (LLVM, create-dmg, pkg-config)
+      - name: Install build runtime (LLVM 15 for bindgen, create-dmg, pkg-config)
         run: |
-          brew install llvm create-dmg
+          brew install create-dmg
           command -v pkg-config >/dev/null || brew install pkg-config
-          echo "LIBCLANG_PATH=$(brew --prefix llvm)/lib" >> "$GITHUB_ENV"
+          # bindgen (0.65, used by scrap for aom/vpx) breaks with libclang >= 18:
+          # it emits opaque structs. Pin an older libclang (15/16/17).
+          LLVM_FORMULA=""
+          for v in llvm@15 llvm@16 llvm@17; do
+            if brew install "$v"; then LLVM_FORMULA="$v"; break; fi
+          done
+          if [ -z "$LLVM_FORMULA" ]; then echo "no compatible llvm@ found"; exit 1; fi
+          echo "Using $LLVM_FORMULA"
+          echo "LIBCLANG_PATH=$(brew --prefix "$LLVM_FORMULA")/lib" >> "$GITHUB_ENV"
 
       - name: Install NASM 2.16 (aom needs 2.x, not brew's 3.x)
         run: |
