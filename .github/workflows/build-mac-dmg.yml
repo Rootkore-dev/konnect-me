@@ -1,0 +1,127 @@
+name: Build Konnect Me macOS DMG
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+env:
+  RUSTDESK_TAG: "1.4.9"
+  FLUTTER_VERSION: "3.24.5"
+  MAC_RUST_VERSION: "1.81"
+  VCPKG_COMMIT_ID: "120deac3062162151622ca4860575a33844ba10b"
+  FRB_VERSION: "1.80.1"
+
+jobs:
+  build-dmg:
+    strategy:
+      fail-fast: false
+      matrix:
+        job:
+          - { os: macos-14,        arch: aarch64, target: aarch64-apple-darwin, vcpkg-triplet: arm64-osx }
+          # Intel build (enable later if needed):
+          # - { os: macos-15-intel, arch: x86_64,  target: x86_64-apple-darwin,  vcpkg-triplet: x64-osx  }
+    runs-on: ${{ matrix.job.os }}
+    steps:
+      - name: Checkout branding repo
+        uses: actions/checkout@v4
+        with:
+          path: branding-repo
+
+      - name: Clone RustDesk source
+        run: git clone --depth 1 --branch "$RUSTDESK_TAG" --recurse-submodules https://github.com/rustdesk/rustdesk rustdesk
+
+      - name: Apply Konnect Me branding
+        working-directory: rustdesk
+        run: bash "$GITHUB_WORKSPACE/branding-repo/apply-branding.sh" "$GITHUB_WORKSPACE/branding-repo/branding"
+
+      - name: Install build runtime (LLVM, create-dmg, pkg-config)
+        run: |
+          brew install llvm create-dmg
+          command -v pkg-config >/dev/null || brew install pkg-config
+          echo "LIBCLANG_PATH=$(brew --prefix llvm)/lib" >> "$GITHUB_ENV"
+
+      - name: Install NASM 2.16 (aom needs 2.x, not brew's 3.x)
+        run: |
+          wget -q https://www.nasm.us/pub/nasm/releasebuilds/2.16.03/macosx/nasm-2.16.03-macosx.zip
+          unzip -q nasm-2.16.03-macosx.zip
+          sudo cp nasm-2.16.03/nasm /usr/local/bin/nasm
+          nasm --version
+
+      - name: Install Flutter ${{ env.FLUTTER_VERSION }}
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+
+      - name: Flutter scheduler workaround
+        run: |
+          cd "$(dirname "$(which flutter)")"
+          sed -i -e 's/_setFramesEnabledState(false);/\/\/_setFramesEnabledState(false);/g' ../packages/flutter/lib/src/scheduler/binding.dart || true
+
+      - name: Install Rust ${{ env.MAC_RUST_VERSION }}
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: ${{ env.MAC_RUST_VERSION }}
+          targets: ${{ matrix.job.target }}
+          components: rustfmt
+
+      - name: Setup vcpkg (pinned)
+        uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgGitCommitId: ${{ env.VCPKG_COMMIT_ID }}
+          doNotCache: false
+
+      - name: Install vcpkg dependencies
+        working-directory: rustdesk
+        run: |
+          "$VCPKG_ROOT/vcpkg" install --x-install-root="$VCPKG_ROOT/installed" || {
+            find "$VCPKG_ROOT/" -name "*.log" -exec sh -c 'echo "== $1 =="; cat "$1"' _ {} \; ; exit 1; }
+
+      - name: Generate FFI bridge (frb ${{ env.FRB_VERSION }})
+        working-directory: rustdesk
+        run: |
+          cargo install flutter_rust_bridge_codegen --version "$FRB_VERSION" --features uuid --locked \
+            || cargo install flutter_rust_bridge_codegen --version "$FRB_VERSION" --features uuid
+          "$HOME/.cargo/bin/flutter_rust_bridge_codegen" \
+            --rust-input ./src/flutter_ffi.rs \
+            --dart-output ./flutter/lib/generated_bridge.dart \
+            --c-output ./flutter/macos/Runner/bridge_generated.h
+
+      - name: Build Konnect Me (.app)
+        working-directory: rustdesk
+        run: |
+          if [ "${{ matrix.job.target }}" = "aarch64-apple-darwin" ]; then
+            MIN_MACOS_VERSION="12.3"
+            sed -i -e "s/MACOSX_DEPLOYMENT_TARGET\=[0-9]*.[0-9]*/MACOSX_DEPLOYMENT_TARGET=${MIN_MACOS_VERSION}/" build.py
+            sed -i -e "s/platform :osx, '.*'/platform :osx, '${MIN_MACOS_VERSION}'/" flutter/macos/Podfile
+            sed -i -e "s/osx_minimum_system_version = \"[0-9]*.[0-9]*\"/osx_minimum_system_version = \"${MIN_MACOS_VERSION}\"/" Cargo.toml
+            sed -i -e "s/MACOSX_DEPLOYMENT_TARGET = [0-9]*.[0-9]*;/MACOSX_DEPLOYMENT_TARGET = ${MIN_MACOS_VERSION};/" flutter/macos/Runner.xcodeproj/project.pbxproj
+          fi
+          ./build.py --flutter --hwcodec --unix-file-copy-paste --screencapturekit
+
+      - name: Rename to "Konnect Me" and create unsigned DMG
+        working-directory: rustdesk
+        run: |
+          PROD="flutter/build/macos/Build/Products/Release"
+          if [ -d "$PROD/RustDesk.app" ]; then mv "$PROD/RustDesk.app" "$PROD/Konnect Me.app"; fi
+          PLIST="$PROD/Konnect Me.app/Contents/Info.plist"
+          /usr/libexec/PlistBuddy -c "Set :CFBundleName Konnect Me" "$PLIST" || true
+          /usr/libexec/PlistBuddy -c "Set :CFBundleDisplayName Konnect Me" "$PLIST" || true
+          CREATE_DMG="$(readlink -f "$(command -v create-dmg)")"
+          sed -i -e 's/MAXIMUM_UNMOUNTING_ATTEMPTS=3/MAXIMUM_UNMOUNTING_ATTEMPTS=7/' "$CREATE_DMG" || true
+          create-dmg \
+            --volname "Konnect Me" \
+            --icon "Konnect Me.app" 200 190 \
+            --hide-extension "Konnect Me.app" \
+            --window-size 800 400 \
+            --app-drop-link 600 185 \
+            "Konnect-Me-macos-${{ matrix.job.arch }}.dmg" \
+            "$PROD/Konnect Me.app"
+
+      - name: Upload DMG artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Konnect-Me-macos-${{ matrix.job.arch }}
+          path: rustdesk/Konnect-Me-macos-*.dmg
+          if-no-files-found: error
