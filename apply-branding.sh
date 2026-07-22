@@ -29,7 +29,16 @@ mkdir -p flutter/macos/Runner
 cp "$BRAND/bridge/bridge_generated.h" flutter/macos/Runner/bridge_generated.h
 echo "bridge dart: $(wc -c < flutter/lib/generated_bridge.dart) bytes"
 
-echo "== 4. display name in AppInfo.xcconfig (best-effort) =="
+echo "== 4. install pre-generated scrap bindings + skip bindgen (no libclang dependency) =="
+mkdir -p libs/scrap/generated
+cp "$BRAND/scrap-generated/aom_ffi.rs" libs/scrap/generated/aom_ffi.rs
+cp "$BRAND/scrap-generated/vpx_ffi.rs" libs/scrap/generated/vpx_ffi.rs
+cp "$BRAND/scrap-generated/yuv_ffi.rs" libs/scrap/generated/yuv_ffi.rs
+# make gen_vcpkg_package copy the committed binding instead of running bindgen
+perl -0777 -i -pe 's/generate_bindings\(&ffi_header, &includes, &ffi_rs, &exact_file, regex\);/if exact_file.exists() { std::fs::copy(&exact_file, &ffi_rs).unwrap(); } else { generate_bindings(&ffi_header, &includes, &ffi_rs, &exact_file, regex); }/g' libs/scrap/build.rs
+echo "build.rs patched:"; grep -n 'exact_file.exists' libs/scrap/build.rs | head
+
+echo "== 5. display name in AppInfo.xcconfig (best-effort) =="
 XC="flutter/macos/Runner/Configs/AppInfo.xcconfig"
 [ -f "$XC" ] && perl -i -pe 's/^PRODUCT_NAME\s*=.*/PRODUCT_NAME = Konnect Me/' "$XC" && grep -n PRODUCT_NAME "$XC" || true
 
