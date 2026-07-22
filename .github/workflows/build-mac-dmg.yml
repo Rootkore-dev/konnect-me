@@ -99,7 +99,18 @@ jobs:
           fi
           # software codec only (no --hwcodec) — avoids the ffmpeg/bindgen path,
           # matching the Windows build. scrap uses pre-generated bindings.
-          ./build.py --flutter --unix-file-copy-paste --screencapturekit
+          ./build.py --flutter --unix-file-copy-paste --screencapturekit 2>&1 | tee "$GITHUB_WORKSPACE/build.log"
+
+      - name: Capture build error to repo (on failure)
+        if: failure()
+        run: |
+          cd "$GITHUB_WORKSPACE/branding-repo"
+          tail -c 15000 "$GITHUB_WORKSPACE/build.log" > build-error.txt 2>/dev/null || echo "no build.log produced" > build-error.txt
+          git config user.email "ci@rootkore.com"
+          git config user.name "ci"
+          git add build-error.txt
+          git commit -m "CI: capture build error [skip ci]" || true
+          git push || true
 
       - name: Rename to "Konnect Me" and create unsigned DMG
         working-directory: rustdesk
