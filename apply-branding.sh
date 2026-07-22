@@ -23,7 +23,13 @@ if [ -d "$ICONSET" ]; then
   echo "replaced $(ls "$ICONSET"/*.png | wc -l) icon files"
 fi
 
-echo "== 3. display name in AppInfo.xcconfig (best-effort) =="
+echo "== 3. install pre-generated FFI bridge (avoids frb+libclang on the runner) =="
+cp "$BRAND/bridge/generated_bridge.dart" flutter/lib/generated_bridge.dart
+mkdir -p flutter/macos/Runner
+cp "$BRAND/bridge/bridge_generated.h" flutter/macos/Runner/bridge_generated.h
+echo "bridge dart: $(wc -c < flutter/lib/generated_bridge.dart) bytes"
+
+echo "== 4. display name in AppInfo.xcconfig (best-effort) =="
 XC="flutter/macos/Runner/Configs/AppInfo.xcconfig"
 [ -f "$XC" ] && perl -i -pe 's/^PRODUCT_NAME\s*=.*/PRODUCT_NAME = Konnect Me/' "$XC" && grep -n PRODUCT_NAME "$XC" || true
 

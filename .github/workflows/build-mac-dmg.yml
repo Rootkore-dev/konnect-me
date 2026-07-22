@@ -78,15 +78,8 @@ jobs:
           "$VCPKG_ROOT/vcpkg" install --x-install-root="$VCPKG_ROOT/installed" || {
             find "$VCPKG_ROOT/" -name "*.log" -exec sh -c 'echo "== $1 =="; cat "$1"' _ {} \; ; exit 1; }
 
-      - name: Generate FFI bridge (frb ${{ env.FRB_VERSION }})
-        working-directory: rustdesk
-        run: |
-          cargo install flutter_rust_bridge_codegen --version "$FRB_VERSION" --features uuid --locked \
-            || cargo install flutter_rust_bridge_codegen --version "$FRB_VERSION" --features uuid
-          "$HOME/.cargo/bin/flutter_rust_bridge_codegen" \
-            --rust-input ./src/flutter_ffi.rs \
-            --dart-output ./flutter/lib/generated_bridge.dart \
-            --c-output ./flutter/macos/Runner/bridge_generated.h
+      # FFI bridge is pre-generated and installed by apply-branding.sh
+      # (regenerating on the runner is fragile due to frb+libclang version coupling).
 
       - name: Build Konnect Me (.app)
         working-directory: rustdesk
