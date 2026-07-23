@@ -145,3 +145,16 @@ jobs:
           name: Konnect-Me-macos-${{ matrix.job.arch }}
           path: Konnect-Me-macos-*.dmg
           if-no-files-found: error
+
+      - name: Publish DMG to a public Release (so it can be downloaded without login)
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="macos-${{ matrix.job.arch }}"
+          gh release delete "$TAG" --yes --cleanup-tag --repo "$GITHUB_REPOSITORY" 2>/dev/null || true
+          gh release create "$TAG" \
+            "$GITHUB_WORKSPACE"/Konnect-Me-macos-${{ matrix.job.arch }}.dmg \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "Konnect Me macOS (${{ matrix.job.arch }})" \
+            --notes "Automated Konnect Me macOS build"
