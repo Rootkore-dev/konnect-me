@@ -112,28 +112,31 @@ jobs:
           git commit -m "CI: capture build error [skip ci]" || true
           git push || true
 
-      - name: Rename to "Konnect Me" and create unsigned DMG
+      - name: Rename to "Konnect Me" and create unsigned DMG (hdiutil, headless-safe)
         working-directory: rustdesk
         run: |
+          set -x
           PROD="flutter/build/macos/Build/Products/Release"
-          if [ -d "$PROD/RustDesk.app" ]; then mv "$PROD/RustDesk.app" "$PROD/Konnect Me.app"; fi
-          PLIST="$PROD/Konnect Me.app/Contents/Info.plist"
+          APP="$(ls -d "$PROD"/*.app | head -1)"
+          echo "built app bundle: $APP"
+          if [ "$(basename "$APP")" != "Konnect Me.app" ]; then
+            mv "$APP" "$PROD/Konnect Me.app"; APP="$PROD/Konnect Me.app"
+          fi
+          PLIST="$APP/Contents/Info.plist"
           /usr/libexec/PlistBuddy -c "Set :CFBundleName Konnect Me" "$PLIST" || true
           /usr/libexec/PlistBuddy -c "Set :CFBundleDisplayName Konnect Me" "$PLIST" || true
-          CREATE_DMG="$(readlink -f "$(command -v create-dmg)")"
-          sed -i -e 's/MAXIMUM_UNMOUNTING_ATTEMPTS=3/MAXIMUM_UNMOUNTING_ATTEMPTS=7/' "$CREATE_DMG" || true
-          create-dmg \
-            --volname "Konnect Me" \
-            --icon "Konnect Me.app" 200 190 \
-            --hide-extension "Konnect Me.app" \
-            --window-size 800 400 \
-            --app-drop-link 600 185 \
-            "Konnect-Me-macos-${{ matrix.job.arch }}.dmg" \
-            "$PROD/Konnect Me.app"
+          # Build a plain compressed DMG with an Applications drop target (no AppleScript/Finder).
+          STAGE="$(mktemp -d)/KonnectMe"
+          mkdir -p "$STAGE"
+          cp -R "$APP" "$STAGE/"
+          ln -s /Applications "$STAGE/Applications"
+          hdiutil create -volname "Konnect Me" -srcfolder "$STAGE" -ov -format UDZO \
+            "$GITHUB_WORKSPACE/Konnect-Me-macos-${{ matrix.job.arch }}.dmg"
+          ls -la "$GITHUB_WORKSPACE"/Konnect-Me-macos-*.dmg
 
       - name: Upload DMG artifact
         uses: actions/upload-artifact@v4
         with:
           name: Konnect-Me-macos-${{ matrix.job.arch }}
-          path: rustdesk/Konnect-Me-macos-*.dmg
+          path: Konnect-Me-macos-*.dmg
           if-no-files-found: error
