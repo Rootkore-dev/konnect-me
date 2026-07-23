@@ -101,38 +101,40 @@ jobs:
           # matching the Windows build. scrap uses pre-generated bindings.
           ./build.py --flutter --unix-file-copy-paste --screencapturekit 2>&1 | tee "$GITHUB_WORKSPACE/build.log"
 
-      - name: Capture build error to repo (on failure)
-        if: failure()
-        run: |
-          cd "$GITHUB_WORKSPACE/branding-repo"
-          tail -c 15000 "$GITHUB_WORKSPACE/build.log" > build-error.txt 2>/dev/null || echo "no build.log produced" > build-error.txt
-          git config user.email "ci@rootkore.com"
-          git config user.name "ci"
-          git add build-error.txt
-          git commit -m "CI: capture build error [skip ci]" || true
-          git push || true
-
       - name: Rename to "Konnect Me" and create unsigned DMG (hdiutil, headless-safe)
         working-directory: rustdesk
         run: |
+          exec > >(tee "$GITHUB_WORKSPACE/dmg.log") 2>&1
           set -x
           PROD="flutter/build/macos/Build/Products/Release"
           APP="$(ls -d "$PROD"/*.app | head -1)"
           echo "built app bundle: $APP"
           if [ "$(basename "$APP")" != "Konnect Me.app" ]; then
-            mv "$APP" "$PROD/Konnect Me.app"; APP="$PROD/Konnect Me.app"
+            mv "$APP" "$PROD/Konnect Me.app"
           fi
+          APP="$PROD/Konnect Me.app"
           PLIST="$APP/Contents/Info.plist"
           /usr/libexec/PlistBuddy -c "Set :CFBundleName Konnect Me" "$PLIST" || true
           /usr/libexec/PlistBuddy -c "Set :CFBundleDisplayName Konnect Me" "$PLIST" || true
-          # Build a plain compressed DMG with an Applications drop target (no AppleScript/Finder).
-          STAGE="$(mktemp -d)/KonnectMe"
-          mkdir -p "$STAGE"
-          cp -R "$APP" "$STAGE/"
+          # Plain compressed DMG with an Applications drop target (no AppleScript/Finder).
+          # Use ditto (preserves .app bundle symlinks; cp -R can corrupt them).
+          STAGE="$(mktemp -d)"
+          ditto "$APP" "$STAGE/Konnect Me.app"
           ln -s /Applications "$STAGE/Applications"
           hdiutil create -volname "Konnect Me" -srcfolder "$STAGE" -ov -format UDZO \
             "$GITHUB_WORKSPACE/Konnect-Me-macos-${{ matrix.job.arch }}.dmg"
           ls -la "$GITHUB_WORKSPACE"/Konnect-Me-macos-*.dmg
+
+      - name: Capture logs to repo (on failure)
+        if: failure()
+        run: |
+          cd "$GITHUB_WORKSPACE/branding-repo"
+          { echo "### dmg.log ###"; tail -c 12000 "$GITHUB_WORKSPACE/dmg.log" 2>/dev/null; \
+            echo; echo "### build.log tail ###"; tail -c 5000 "$GITHUB_WORKSPACE/build.log" 2>/dev/null; } > build-error.txt
+          git config user.email "ci@rootkore.com"; git config user.name "ci"
+          git add build-error.txt
+          git commit -m "CI error capture [skip ci]" || true
+          git push || true
 
       - name: Upload DMG artifact
         uses: actions/upload-artifact@v4
