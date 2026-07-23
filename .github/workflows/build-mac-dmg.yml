@@ -169,27 +169,38 @@ jobs:
           if [ -n "$IDENTITY" ]; then
             timeout 300 codesign --force --timestamp --sign "$IDENTITY" "$DMG" || echo "dmg codesign slow/failed (non-fatal)"
             if [ -n "$APPLE_ID" ] && [ -n "$APPLE_APP_PASSWORD" ] && [ -n "$APPLE_TEAM_ID" ]; then
-              echo "submitting to Apple notary (max 20 min)…"
-              if timeout 1500 xcrun notarytool submit "$DMG" --apple-id "$APPLE_ID" --password "$APPLE_APP_PASSWORD" --team-id "$APPLE_TEAM_ID" --wait --timeout 20m; then
+              echo "submitting to Apple notary (max 45 min)…"
+              SUB=$(timeout 2700 xcrun notarytool submit "$DMG" --apple-id "$APPLE_ID" --password "$APPLE_APP_PASSWORD" --team-id "$APPLE_TEAM_ID" --wait --timeout 40m 2>&1)
+              echo "$SUB"
+              echo "$SUB" > "$GITHUB_WORKSPACE/notary-${{ matrix.job.arch }}.log"
+              SID=$(echo "$SUB" | grep -oiE '\bid: [0-9a-f-]{36}' | head -1 | awk '{print $2}')
+              if echo "$SUB" | grep -q "status: Accepted"; then
                 xcrun stapler staple "$DMG" && echo "notarized + stapled ✅"
               else
-                echo "notarization slow/failed — publishing SIGNED (not stapled) DMG anyway"
+                echo "NOT accepted — fetching notary log for id=$SID"
+                [ -n "$SID" ] && xcrun notarytool log "$SID" --apple-id "$APPLE_ID" --password "$APPLE_APP_PASSWORD" --team-id "$APPLE_TEAM_ID" 2>&1 | tee -a "$GITHUB_WORKSPACE/notary-${{ matrix.job.arch }}.log" || true
               fi
             else
               echo "notary creds missing — signed but NOT notarized"
             fi
           fi
 
-      - name: Capture logs to repo (on failure)
-        if: failure()
+      - name: Capture logs to repo (always)
+        if: always()
         run: |
           cd "$GITHUB_WORKSPACE/branding-repo"
-          { echo "### dmg.log ###"; tail -c 12000 "$GITHUB_WORKSPACE/dmg.log" 2>/dev/null; \
-            echo; echo "### build.log tail ###"; tail -c 5000 "$GITHUB_WORKSPACE/build.log" 2>/dev/null; } > build-error.txt
+          A="${{ matrix.job.arch }}"
+          { echo "### notary-$A.log ###"; cat "$GITHUB_WORKSPACE/notary-$A.log" 2>/dev/null; \
+            echo; echo "### dmg.log tail ###"; tail -c 8000 "$GITHUB_WORKSPACE/dmg.log" 2>/dev/null; \
+            echo; echo "### build.log tail ###"; tail -c 4000 "$GITHUB_WORKSPACE/build.log" 2>/dev/null; } > "ci-log-$A.txt"
           git config user.email "ci@rootkore.com"; git config user.name "ci"
-          git add build-error.txt
-          git commit -m "CI error capture [skip ci]" || true
-          git push || true
+          # pull-rebase to avoid races between the two matrix jobs pushing
+          for i in 1 2 3 4 5; do
+            git add "ci-log-$A.txt"
+            git commit -m "CI log $A [skip ci]" || true
+            git pull --rebase -q origin main 2>/dev/null || true
+            git push origin main 2>/dev/null && break || sleep 3
+          done
 
       - name: Upload DMG artifact
         uses: actions/upload-artifact@v4
