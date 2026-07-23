@@ -146,10 +146,29 @@ jobs:
             # unlock keychains so codesign never blocks on a UI prompt
             security unlock-keychain -p "" login.keychain 2>/dev/null || true
             for kc in $(security list-keychains -d user | tr -d '"'); do security set-keychain-settings "$kc" 2>/dev/null || true; done
-            # single --deep sign, hardened runtime; timeout so a slow Apple timestamp server can't hang the build
-            timeout 900 codesign --force --deep --timestamp --options runtime --sign "$IDENTITY" "$APP" \
-              || { echo "codesign FAILED/timed out"; IDENTITY=""; }
-            [ -n "$IDENTITY" ] && codesign --verify --deep --strict "$APP" && echo "app signature OK"
+            ENT="flutter/macos/Runner/Release.entitlements"
+            [ -f "$ENT" ] || ENT=""
+            # Apple requires hardened runtime + secure timestamp on EVERY nested Mach-O,
+            # signed inside-out (--deep is unreliable and rejected by notary). Sign
+            # dylibs/.so, then frameworks, then nested app/xpc bundles, then the outer app.
+            SIGN() { timeout 300 codesign --force --timestamp --options runtime --sign "$IDENTITY" "$@" 2>&1 || echo "  (sign warn: $*)"; }
+            find "$APP/Contents" -type f \( -name "*.dylib" -o -name "*.so" \) -print0 2>/dev/null \
+              | while IFS= read -r -d '' f; do SIGN "$f"; done
+            if [ -d "$APP/Contents/Frameworks" ]; then
+              for fw in "$APP/Contents/Frameworks/"*.framework; do [ -d "$fw" ] && SIGN "$fw"; done
+              for dl in "$APP/Contents/Frameworks/"*.dylib;      do [ -e "$dl" ] && SIGN "$dl"; done
+            fi
+            find "$APP/Contents" -type d \( -name "*.app" -o -name "*.xpc" \) ! -path "$APP" -print0 2>/dev/null \
+              | while IFS= read -r -d '' a; do SIGN "$a"; done
+            # outer bundle last, with entitlements so hardened runtime doesn't break Flutter's JIT
+            if [ -n "$ENT" ]; then
+              timeout 900 codesign --force --timestamp --options runtime --entitlements "$ENT" --sign "$IDENTITY" "$APP" \
+                || { echo "codesign FAILED/timed out"; IDENTITY=""; }
+            else
+              timeout 900 codesign --force --timestamp --options runtime --sign "$IDENTITY" "$APP" \
+                || { echo "codesign FAILED/timed out"; IDENTITY=""; }
+            fi
+            [ -n "$IDENTITY" ] && codesign --verify --deep --strict --verbose=2 "$APP" && echo "app signature OK"
           else
             echo "no signing identity — building UNSIGNED"
           fi
@@ -165,23 +184,25 @@ jobs:
           echo "DMG size: $SZ bytes"
           if [ "$SZ" -lt 5000000 ]; then echo "DMG too small ($SZ) — app bundle missing"; exit 1; fi
 
-          # --- sign + notarize + staple the DMG (if identity + notary creds present) ---
+          # --- sign + (best-effort) notarize the DMG. NEVER fail the build on notary issues. ---
+          NLOG="$GITHUB_WORKSPACE/notary-${{ matrix.job.arch }}.log"
+          : > "$NLOG"
           if [ -n "$IDENTITY" ]; then
-            timeout 300 codesign --force --timestamp --sign "$IDENTITY" "$DMG" || echo "dmg codesign slow/failed (non-fatal)"
+            timeout 300 codesign --force --timestamp --sign "$IDENTITY" "$DMG" || echo "dmg codesign non-fatal"
             if [ -n "$APPLE_ID" ] && [ -n "$APPLE_APP_PASSWORD" ] && [ -n "$APPLE_TEAM_ID" ]; then
-              echo "submitting to Apple notary (max 45 min)…"
-              SUB=$(timeout 2700 xcrun notarytool submit "$DMG" --apple-id "$APPLE_ID" --password "$APPLE_APP_PASSWORD" --team-id "$APPLE_TEAM_ID" --wait --timeout 40m 2>&1)
-              echo "$SUB"
-              echo "$SUB" > "$GITHUB_WORKSPACE/notary-${{ matrix.job.arch }}.log"
-              SID=$(echo "$SUB" | grep -oiE '\bid: [0-9a-f-]{36}' | head -1 | awk '{print $2}')
-              if echo "$SUB" | grep -q "status: Accepted"; then
+              set +e
+              echo "submitting to Apple notary…"
+              timeout 2700 xcrun notarytool submit "$DMG" --apple-id "$APPLE_ID" --password "$APPLE_APP_PASSWORD" --team-id "$APPLE_TEAM_ID" --wait --timeout 40m > "$NLOG" 2>&1
+              cat "$NLOG"
+              SID=$(grep -oiE 'id: [0-9a-f-]{36}' "$NLOG" | head -1 | awk '{print $NF}')
+              if grep -q "status: Accepted" "$NLOG"; then
                 xcrun stapler staple "$DMG" && echo "notarized + stapled ✅"
               else
-                echo "NOT accepted — fetching notary log for id=$SID"
-                [ -n "$SID" ] && xcrun notarytool log "$SID" --apple-id "$APPLE_ID" --password "$APPLE_APP_PASSWORD" --team-id "$APPLE_TEAM_ID" 2>&1 | tee -a "$GITHUB_WORKSPACE/notary-${{ matrix.job.arch }}.log" || true
+                echo "not accepted — fetching detailed notary log (id=$SID)"
+                [ -n "$SID" ] && xcrun notarytool log "$SID" --apple-id "$APPLE_ID" --password "$APPLE_APP_PASSWORD" --team-id "$APPLE_TEAM_ID" >> "$NLOG" 2>&1
+                cat "$NLOG"
               fi
-            else
-              echo "notary creds missing — signed but NOT notarized"
+              set -e
             fi
           fi
 
@@ -209,15 +230,19 @@ jobs:
           path: Konnect-Me-macos-*.dmg
           if-no-files-found: error
 
-      - name: Publish DMG to a public Release (so it can be downloaded without login)
-        if: success()
+      - name: Publish DMG + notary log to a public Release (downloadable without login)
+        if: always()
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           TAG="macos-${{ matrix.job.arch }}"
+          NLOG="$GITHUB_WORKSPACE/notary-${{ matrix.job.arch }}.log"
+          DMG="$GITHUB_WORKSPACE/Konnect-Me-macos-${{ matrix.job.arch }}.dmg"
+          [ -f "$NLOG" ] || echo "no notary log" > "$NLOG"
+          ASSETS=("$NLOG")
+          [ -f "$DMG" ] && ASSETS=("$DMG" "$NLOG")
           gh release delete "$TAG" --yes --cleanup-tag --repo "$GITHUB_REPOSITORY" 2>/dev/null || true
-          gh release create "$TAG" \
-            "$GITHUB_WORKSPACE"/Konnect-Me-macos-${{ matrix.job.arch }}.dmg \
+          gh release create "$TAG" "${ASSETS[@]}" \
             --repo "$GITHUB_REPOSITORY" \
             --title "Konnect Me macOS (${{ matrix.job.arch }})" \
             --notes "Automated Konnect Me macOS build"
