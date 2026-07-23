@@ -22,8 +22,7 @@ jobs:
       matrix:
         job:
           - { os: macos-14,        arch: aarch64, target: aarch64-apple-darwin, vcpkg-triplet: arm64-osx }
-          # Intel build (enable later if needed):
-          # - { os: macos-15-intel, arch: x86_64,  target: x86_64-apple-darwin,  vcpkg-triplet: x64-osx  }
+          - { os: macos-15-intel,  arch: x86_64,  target: x86_64-apple-darwin,  vcpkg-triplet: x64-osx  }
     runs-on: ${{ matrix.job.os }}
     steps:
       - name: Checkout branding repo
