@@ -25,6 +25,8 @@ fi
 
 echo "== 3. install pre-generated FFI bridge (avoids frb+libclang on the runner) =="
 cp "$BRAND/bridge/generated_bridge.dart" flutter/lib/generated_bridge.dart
+# freezed part file (build_runner output) that generated_bridge.dart depends on
+cp "$BRAND/bridge/generated_bridge.freezed.dart" flutter/lib/generated_bridge.freezed.dart
 mkdir -p flutter/macos/Runner
 cp "$BRAND/bridge/bridge_generated.h" flutter/macos/Runner/bridge_generated.h
 # Rust half of the FFI bridge (generated, not committed): main + native-io include
