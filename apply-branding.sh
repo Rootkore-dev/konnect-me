@@ -27,9 +27,10 @@ echo "== 3. install pre-generated FFI bridge (avoids frb+libclang on the runner)
 cp "$BRAND/bridge/generated_bridge.dart" flutter/lib/generated_bridge.dart
 mkdir -p flutter/macos/Runner
 cp "$BRAND/bridge/bridge_generated.h" flutter/macos/Runner/bridge_generated.h
-# Rust half of the FFI bridge (src/lib.rs has `mod bridge_generated;`, generated, not committed)
+# Rust half of the FFI bridge (generated, not committed): main + native-io include
 cp "$BRAND/bridge/bridge_generated.rs" src/bridge_generated.rs
-echo "bridge: dart $(wc -c < flutter/lib/generated_bridge.dart)B, rust $(wc -c < src/bridge_generated.rs)B"
+cp "$BRAND/bridge/bridge_generated.io.rs" src/bridge_generated.io.rs
+echo "bridge: dart $(wc -c < flutter/lib/generated_bridge.dart)B, rust $(wc -c < src/bridge_generated.rs)B + io $(wc -c < src/bridge_generated.io.rs)B"
 
 echo "== 4. install pre-generated scrap bindings + skip bindgen (no libclang dependency) =="
 mkdir -p libs/scrap/generated
