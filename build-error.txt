@@ -1,64 +1,159 @@
 ### dmg.log ###
 + PROD=flutter/build/macos/Build/Products/Release
-++ ls -d 'flutter/build/macos/Build/Products/Release/*.app'
++ echo '=== products dir ==='
+=== products dir ===
++ ls -la flutter/build/macos/Build/Products/Release
+total 8
+drwxr-xr-x@ 24 runner  staff  768 Jul 23 10:22 .
+drwxr-xr-x@  3 runner  staff   96 Jul 23 10:22 ..
+-rw-r--r--   1 runner  staff   32 Jul 23 10:22 .last_build_id
+drwxr-xr-x@  4 runner  staff  128 Jul 23 10:22 FMDB
+drwxr-xr-x@  2 runner  staff   64 Jul 23 10:22 FlutterMacOS
+drwxr-xr-x   7 runner  staff  224 Nov 13  2024 FlutterMacOS.framework
+drwxr-xr-x   7 runner  staff  224 Jul 23 10:22 Pods_Runner.framework
+drwxr-xr-x   3 runner  staff   96 Jul 23 10:22 RustDesk.app
+drwxr-xr-x@  3 runner  staff   96 Jul 23 10:22 desktop_drop
+drwxr-xr-x@  3 runner  staff   96 Jul 23 10:22 desktop_multi_window
+drwxr-xr-x@  3 runner  staff   96 Jul 23 10:22 device_info_plus
+drwxr-xr-x@  4 runner  staff  128 Jul 23 10:22 file_selector_macos
+drwxr-xr-x@  3 runner  staff   96 Jul 23 10:22 flutter_custom_cursor
+drwxr-xr-x@  3 runner  staff   96 Jul 23 10:22 package_info_plus
+drwxr-xr-x@  4 runner  staff  128 Jul 23 10:22 path_provider_foundation
+drwxr-xr-x@  3 runner  staff   96 Jul 23 10:22 screen_retriever
+drwxr-xr-x@  3 runner  staff   96 Jul 23 10:22 sqflite
+drwxr-xr-x@  3 runner  staff   96 Jul 23 10:22 texture_rgba_renderer
+drwxr-xr-x@  3 runner  staff   96 Jul 23 10:22 uni_links_desktop
+drwxr-xr-x@  4 runner  staff  128 Jul 23 10:22 url_launcher_macos
+drwxr-xr-x@  4 runner  staff  128 Jul 23 10:22 video_player_avfoundation
+drwxr-xr-x@  3 runner  staff   96 Jul 23 10:22 wakelock_plus
+drwxr-xr-x@  3 runner  staff   96 Jul 23 10:22 window_manager
+drwxr-xr-x@  3 runner  staff   96 Jul 23 10:22 window_size
++ find flutter/build -maxdepth 6 -name '*.app' -type d
+flutter/build/macos/Build/Products/Release/RustDesk.app
+++ ls -d flutter/build/macos/Build/Products/Release/RustDesk.app
 ++ head -1
-ls: flutter/build/macos/Build/Products/Release/*.app: No such file or directory
-+ APP=
-+ echo 'built app bundle: '
-built app bundle: 
-++ basename ''
-+ '[' '' '!=' 'Konnect Me.app' ']'
-+ mv '' 'flutter/build/macos/Build/Products/Release/Konnect Me.app'
-mv: rename  to flutter/build/macos/Build/Products/Release/Konnect Me.app: No such file or directory
++ APP=flutter/build/macos/Build/Products/Release/RustDesk.app
++ '[' -z flutter/build/macos/Build/Products/Release/RustDesk.app ']'
++ echo 'built app bundle: flutter/build/macos/Build/Products/Release/RustDesk.app'
+built app bundle: flutter/build/macos/Build/Products/Release/RustDesk.app
+++ basename flutter/build/macos/Build/Products/Release/RustDesk.app
++ '[' RustDesk.app '!=' 'Konnect Me.app' ']'
++ mv flutter/build/macos/Build/Products/Release/RustDesk.app 'flutter/build/macos/Build/Products/Release/Konnect Me.app'
++ APP='flutter/build/macos/Build/Products/Release/Konnect Me.app'
++ PLIST='flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Info.plist'
++ /usr/libexec/PlistBuddy -c 'Set :CFBundleName Konnect Me' 'flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Info.plist'
+Set: Entry, ":CFBundleName", Does Not Exist
+File Doesn't Exist, Will Create: flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Info.plist
++ true
++ /usr/libexec/PlistBuddy -c 'Set :CFBundleDisplayName Konnect Me' 'flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Info.plist'
+Set: Entry, ":CFBundleDisplayName", Does Not Exist
++ true
+++ mktemp -d
++ STAGE=/var/folders/g3/pffjr_y96bq06blnkf72x_hw0000gn/T/tmp.WASAdmNyzI
++ ditto 'flutter/build/macos/Build/Products/Release/Konnect Me.app' '/var/folders/g3/pffjr_y96bq06blnkf72x_hw0000gn/T/tmp.WASAdmNyzI/Konnect Me.app'
++ ln -s /Applications /var/folders/g3/pffjr_y96bq06blnkf72x_hw0000gn/T/tmp.WASAdmNyzI/Applications
++ DMG=/Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg
++ hdiutil create -volname 'Konnect Me' -srcfolder /var/folders/g3/pffjr_y96bq06blnkf72x_hw0000gn/T/tmp.WASAdmNyzI -ov -format UDZO /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg
+created: /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg
++ ls -la /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg
+-rw-r--r--@ 1 runner  staff  17547 Jul 23 10:22 /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg
+++ stat -f%z /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg
++ SZ=17547
++ echo 'DMG size: 17547 bytes'
+DMG size: 17547 bytes
++ '[' 17547 -lt 5000000 ']'
++ echo 'DMG too small (17547) — app bundle missing'
+DMG too small (17547) — app bundle missing
++ exit 1
 
 ### build.log tail ###
-e39bf)
-[1m[33mwarning[0m[1m:[0m rustdesk@1.4.9: src/platform/macos.mm:103:18: warning: 'AuthorizationExecuteWithPrivileges' is deprecated: first deprecated in macOS 10.7 [-Wdeprecated-declarations]
-[1m[33mwarning[0m[1m:[0m rustdesk@1.4.9:         status = AuthorizationExecuteWithPrivileges(authRef, process, kAuthorizationFlagDefaults, args, &pipe);
-[1m[33mwarning[0m[1m:[0m rustdesk@1.4.9:                  ^
-[1m[33mwarning[0m[1m:[0m rustdesk@1.4.9: /Applications/Xcode_15.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Security.framework/Headers/Authorization.h:427:10: note: 'AuthorizationExecuteWithPrivileges' has been explicitly marked deprecated here
-[1m[33mwarning[0m[1m:[0m rustdesk@1.4.9: OSStatus AuthorizationExecuteWithPrivileges(AuthorizationRef authorization,
-[1m[33mwarning[0m[1m:[0m rustdesk@1.4.9:          ^
-[1m[33mwarning[0m[1m:[0m rustdesk@1.4.9: src/platform/macos.mm:141:30: warning: 'CGDisplayModeCopyPixelEncoding' is deprecated: first deprecated in macOS 10.11 - No longer supported [-Wdeprecated-declarations]
-[1m[33mwarning[0m[1m:[0m rustdesk@1.4.9:         CFStringRef pixelEncoding = CGDisplayModeCopyPixelEncoding(mode);
-[1m[33mwarning[0m[1m:[0m rustdesk@1.4.9:                                     ^
-[1m[33mwarning[0m[1m:[0m rustdesk@1.4.9: /Applications/Xcode_15.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CGDirectDisplay.h:177:34: note: 'CGDisplayModeCopyPixelEncoding' has been explicitly marked deprecated here
-[1m[33mwarning[0m[1m:[0m rustdesk@1.4.9: CG_EXTERN CFStringRef __nullable CGDisplayModeCopyPixelEncoding(
-[1m[33mwarning[0m[1m:[0m rustdesk@1.4.9:                                  ^
-[1m[33mwarning[0m[1m:[0m rustdesk@1.4.9: 2 warnings generated.
-[1m[32m   Compiling[0m ctrlc v3.4.4
-[1m[32m   Compiling[0m repng v0.2.2
-[1m[32m   Compiling[0m ringbuf v0.3.3
-[1m[32m   Compiling[0m async-trait v0.1.80
-[1m[32m   Compiling[0m serde_repr v0.1.19
-[1m[32m   Compiling[0m hex v0.4.3
-[1m[32m   Compiling[0m shutdown_hooks v0.1.0
-[1m[32m   Compiling[0m sys-locale v0.3.1
-[1m[32m   Compiling[0m wol-rs v1.0.1
-[1m[32m   Compiling[0m system_shutdown v4.0.1
-[0m[1m[38;5;9merror[0m[0m[1m: couldn't read src/bridge_generated.io.rs: No such file or directory (os error 2)[0m
-[0m    [0m[0m[1m[38;5;12m--> [0m[0msrc/bridge_generated.rs:5251:1[0m
-[0m     [0m[0m[1m[38;5;12m|[0m
-[0m[1m[38;5;12m5251[0m[0m [0m[0m[1m[38;5;12m|[0m[0m [0m[0mmod io;[0m
-[0m     [0m[0m[1m[38;5;12m|[0m[0m [0m[0m[1m[38;5;9m^^^^^^^[0m
+ vector_math 2.1.4 (from transitive dependency to direct dependency) (2.4.1 available)
+  video_player 2.9.5 (2.13.0 available)
+  video_player_android 2.7.16 (2.12.0 available)
+  video_player_avfoundation 2.7.1 (2.11.0 available)
+  video_player_platform_interface 6.3.0 (6.9.0 available)
+  video_player_web 2.3.5 (2.4.0 available)
++ vm_service 14.2.5 (15.2.0 available)
+  wakelock_plus 1.2.1 (1.7.0 available)
+  wakelock_plus_platform_interface 1.2.3 (1.6.0 available)
+  watcher 1.1.2 (1.2.1 available)
+  web 0.5.1 (1.1.1 available)
+  web_socket_channel 2.4.5 (3.0.3 available)
+  win32 5.10.1 (6.3.0 available)
+  win32_registry 1.1.5 (3.0.3 available)
+  xml 6.5.0 (7.0.1 available)
+  yaml_edit 2.2.2 (2.2.4 available)
+Changed 16 dependencies!
+1 package is discontinued.
+141 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
 
-The following warnings were emitted during compilation:
+Running pod install...                                           2,577ms
+Building macOS application...                                   
+--- xcodebuild: WARNING: Using the first of multiple matching destinations:
+{ platform:macOS, arch:arm64, id:0000FE00-4E3C58738E9617E1, name:My Mac }
+{ platform:macOS, arch:x86_64, id:0000FE00-4E3C58738E9617E1, name:My Mac }
+lib/generated_bridge.dart:14:6: Error: Error when reading 'lib/generated_bridge.freezed.dart': No such file or directory
+part 'generated_bridge.freezed.dart';
+     ^
+lib/generated_bridge.dart:14:6: Error: Can't use 'lib/generated_bridge.freezed.dart' as a part, because it has no 'part of' declaration.
+part 'generated_bridge.freezed.dart';
+     ^
+lib/generated_bridge.dart:1743:29: Error: Type '_$EventToUI' not found.
+sealed class EventToUI with _$EventToUI {
+                            ^^^^^^^^^^^
+lib/generated_bridge.dart:1743:14: Error: The type '_$EventToUI' can't be mixed in.
+sealed class EventToUI with _$EventToUI {
+             ^
+lib/generated_bridge.dart:1746:7: Error: Couldn't find constructor 'EventToUI_Event'.
+  ) = EventToUI_Event;
+      ^
+lib/generated_bridge.dart:1749:7: Error: Couldn't find constructor 'EventToUI_Rgba'.
+  ) = EventToUI_Rgba;
+      ^
+lib/generated_bridge.dart:1753:7: Error: Couldn't find constructor 'EventToUI_Texture'.
+  ) = EventToUI_Texture;
+      ^
+lib/generated_bridge.dart:1746:7: Error: Redirection constructor target not found: 'EventToUI_Event'
+  ) = EventToUI_Event;
+      ^
+lib/generated_bridge.dart:1749:7: Error: Redirection constructor target not found: 'EventToUI_Rgba'
+  ) = EventToUI_Rgba;
+      ^
+lib/generated_bridge.dart:1753:7: Error: Redirection constructor target not found: 'EventToUI_Texture'
+  ) = EventToUI_Texture;
+      ^
+lib/models/model.dart:3894:24: Error: 'EventToUI_Event' isn't a type.
+        if (message is EventToUI_Event) {
+                       ^^^^^^^^^^^^^^^
+lib/models/model.dart:3910:31: Error: 'EventToUI_Rgba' isn't a type.
+        } else if (message is EventToUI_Rgba) {
+                              ^^^^^^^^^^^^^^
+lib/models/model.dart:3925:31: Error: 'EventToUI_Texture' isn't a type.
+        } else if (message is EventToUI_Texture) {
+                              ^^^^^^^^^^^^^^^^^
+lib/generated_bridge.dart:8075:16: Error: The method 'EventToUI_Event' isn't defined for the class 'RustdeskImpl'.
+ - 'RustdeskImpl' is from 'package:flutter_hbb/generated_bridge.dart' ('lib/generated_bridge.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'EventToUI_Event'.
+        return EventToUI_Event(
+               ^^^^^^^^^^^^^^^
+lib/generated_bridge.dart:8079:16: Error: The method 'EventToUI_Rgba' isn't defined for the class 'RustdeskImpl'.
+ - 'RustdeskImpl' is from 'package:flutter_hbb/generated_bridge.dart' ('lib/generated_bridge.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'EventToUI_Rgba'.
+        return EventToUI_Rgba(
+               ^^^^^^^^^^^^^^
+lib/generated_bridge.dart:8083:16: Error: The method 'EventToUI_Texture' isn't defined for the class 'RustdeskImpl'.
+ - 'RustdeskImpl' is from 'package:flutter_hbb/generated_bridge.dart' ('lib/generated_bridge.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'EventToUI_Texture'.
+        return EventToUI_Texture(
+               ^^^^^^^^^^^^^^^^^
+Target kernel_snapshot_program failed: Exception
 
-[1m[33mwarning[0m[1m:[0m rustdesk@1.4.9: src/platform/macos.mm:103:18: warning: 'AuthorizationExecuteWithPrivileges' is deprecated: first deprecated in macOS 10.7 [-Wdeprecated-declarations]
-[1m[33mwarning[0m[1m:[0m rustdesk@1.4.9:         status = AuthorizationExecuteWithPrivileges(authRef, process, kAuthorizationFlagDefaults, args, &pipe);
-[1m[33mwarning[0m[1m:[0m rustdesk@1.4.9:                  ^
-[1m[33mwarning[0m[1m:[0m rustdesk@1.4.9: /Applications/Xcode_15.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Security.framework/Headers/Authorization.h:427:10: note: 'AuthorizationExecuteWithPrivileges' has been explicitly marked deprecated here
-[1m[33mwarning[0m[1m:[0m rustdesk@1.4.9: OSStatus AuthorizationExecuteWithPrivileges(AuthorizationRef authorization,
-[1m[33mwarning[0m[1m:[0m rustdesk@1.4.9:          ^
-[1m[33mwarning[0m[1m:[0m rustdesk@1.4.9: src/platform/macos.mm:141:30: warning: 'CGDisplayModeCopyPixelEncoding' is deprecated: first deprecated in macOS 10.11 - No longer supported [-Wdeprecated-declarations]
-[1m[33mwarning[0m[1m:[0m rustdesk@1.4.9:         CFStringRef pixelEncoding = CGDisplayModeCopyPixelEncoding(mode);
-[1m[33mwarning[0m[1m:[0m rustdesk@1.4.9:                                     ^
-[1m[33mwarning[0m[1m:[0m rustdesk@1.4.9: /Applications/Xcode_15.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CGDirectDisplay.h:177:34: note: 'CGDisplayModeCopyPixelEncoding' has been explicitly marked deprecated here
-[1m[33mwarning[0m[1m:[0m rustdesk@1.4.9: CG_EXTERN CFStringRef __nullable CGDisplayModeCopyPixelEncoding(
-[1m[33mwarning[0m[1m:[0m rustdesk@1.4.9:                                  ^
-[1m[33mwarning[0m[1m:[0m rustdesk@1.4.9: 2 warnings generated.
+Command PhaseScriptExecution failed with a nonzero exit code
+warning: Run script build phase 'Run Script' will be run during every build because it does not specify any outputs. To address this warning, either add output dependencies to the script phase, or configure it to run in every build by unchecking "Based on dependency analysis" in the script phase. (in target 'Flutter Assemble' from project 'Runner')
+** BUILD FAILED **
 
-[1m[31merror[0m[1m:[0m could not compile `rustdesk` (lib) due to 1 previous error
-Error occurred when executing: `MACOSX_DEPLOYMENT_TARGET=12.3 cargo build --locked --features flutter,unix-file-copy-paste,screencapturekit --release`. Exiting.
+Build process failed
+Error occurred when executing: `FLUTTER_XCODE_ARCHS=arm64 FLUTTER_XCODE_ONLY_ACTIVE_ARCH=YES flutter build macos --release`. Exiting.
 features: ['flutter', 'unix-file-copy-paste', 'screencapturekit']
 False
