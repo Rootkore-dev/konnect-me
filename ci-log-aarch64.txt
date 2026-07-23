@@ -1,83 +1,167 @@
 ### notary-aarch64.log ###
++ perl -e 'alarm(shift); exec(@ARGV)' 2700 xcrun notarytool submit /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg --apple-id development@rootkore.com --password jrba-wybi-lbhy-civp --team-id S8M7SZCV9G --wait --timeout 40m
+Conducting pre-submission checks for Konnect-Me-macos-aarch64.dmg and initiating connection to the Apple notary service...
+Submission ID received
+  id: 58ae8d7a-c301-4715-ae80-d8aac934db36
+Successfully uploaded file
+  id: 58ae8d7a-c301-4715-ae80-d8aac934db36
+  path: /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg
+Waiting for processing to complete. Wait timeout is set to 2400.0 second(s).
+Current status: In Progress...Current status: In Progress....Current status: In Progress.....Current status: In Progress......Current status: Invalid.......Processing complete
+  id: 58ae8d7a-c301-4715-ae80-d8aac934db36
+  status: Invalid
+
+{
+  "logFormatVersion": 1,
+  "jobId": "58ae8d7a-c301-4715-ae80-d8aac934db36",
+  "status": "Invalid",
+  "statusSummary": "Archive contains critical validation errors",
+  "statusCode": 4000,
+  "archiveFilename": "Konnect-Me-macos-aarch64.dmg",
+  "uploadDate": "2026-07-23T21:08:07.030Z",
+  "sha256": "110f05291226547538a809ed80ae471c8bf7a4d7efc4f3888d018a96274f606c",
+  "ticketContents": null,
+  "issues": [
+    {
+      "severity": "error",
+      "code": null,
+      "path": "Konnect-Me-macos-aarch64.dmg/Konnect Me.app/Contents/MacOS/service",
+      "message": "The binary is not signed with a valid Developer ID certificate.",
+      "docUrl": "https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution/resolving_common_notarization_issues#3087721",
+      "architecture": "arm64"
+    },
+    {
+      "severity": "error",
+      "code": null,
+      "path": "Konnect-Me-macos-aarch64.dmg/Konnect Me.app/Contents/MacOS/service",
+      "message": "The signature does not include a secure timestamp.",
+      "docUrl": "https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution/resolving_common_notarization_issues#3087733",
+      "architecture": "arm64"
+    },
+    {
+      "severity": "error",
+      "code": null,
+      "path": "Konnect-Me-macos-aarch64.dmg/Konnect Me.app/Contents/MacOS/service",
+      "message": "The executable does not have the hardened runtime enabled.",
+      "docUrl": "https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution/resolving_common_notarization_issues#3087724",
+      "architecture": "arm64"
+    }
+  ]
+}
 
 ### dmg.log tail ###
-nect Me.app/Contents/Frameworks/texture_rgba_renderer.framework)
-+ for fw in '"$APP/Contents/Frameworks/"*.framework'
-+ '[' -d 'flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/uni_links_desktop.framework' ']'
-+ SIGN 'flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/uni_links_desktop.framework'
-+ timeout 300 codesign --force --timestamp --options runtime --sign 'Developer ID Application: Mohamed  Wahba (S8M7SZCV9G)' 'flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/uni_links_desktop.framework'
-/Users/runner/work/_temp/009b4d7d-ca58-4698-9620-5107b7a11515.sh: line 29: timeout: command not found
-+ echo '  (sign warn: flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/uni_links_desktop.framework)'
-  (sign warn: flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/uni_links_desktop.framework)
-+ for fw in '"$APP/Contents/Frameworks/"*.framework'
-+ '[' -d 'flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/url_launcher_macos.framework' ']'
-+ SIGN 'flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/url_launcher_macos.framework'
-+ timeout 300 codesign --force --timestamp --options runtime --sign 'Developer ID Application: Mohamed  Wahba (S8M7SZCV9G)' 'flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/url_launcher_macos.framework'
-/Users/runner/work/_temp/009b4d7d-ca58-4698-9620-5107b7a11515.sh: line 29: timeout: command not found
-+ echo '  (sign warn: flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/url_launcher_macos.framework)'
-  (sign warn: flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/url_launcher_macos.framework)
-+ for fw in '"$APP/Contents/Frameworks/"*.framework'
-+ '[' -d 'flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/video_player_avfoundation.framework' ']'
-+ SIGN 'flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/video_player_avfoundation.framework'
-+ timeout 300 codesign --force --timestamp --options runtime --sign 'Developer ID Application: Mohamed  Wahba (S8M7SZCV9G)' 'flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/video_player_avfoundation.framework'
-/Users/runner/work/_temp/009b4d7d-ca58-4698-9620-5107b7a11515.sh: line 29: timeout: command not found
-+ echo '  (sign warn: flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/video_player_avfoundation.framework)'
-  (sign warn: flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/video_player_avfoundation.framework)
-+ for fw in '"$APP/Contents/Frameworks/"*.framework'
-+ '[' -d 'flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/wakelock_plus.framework' ']'
-+ SIGN 'flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/wakelock_plus.framework'
-+ timeout 300 codesign --force --timestamp --options runtime --sign 'Developer ID Application: Mohamed  Wahba (S8M7SZCV9G)' 'flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/wakelock_plus.framework'
-/Users/runner/work/_temp/009b4d7d-ca58-4698-9620-5107b7a11515.sh: line 29: timeout: command not found
-+ echo '  (sign warn: flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/wakelock_plus.framework)'
-  (sign warn: flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/wakelock_plus.framework)
-+ for fw in '"$APP/Contents/Frameworks/"*.framework'
-+ '[' -d 'flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/window_manager.framework' ']'
-+ SIGN 'flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/window_manager.framework'
-+ timeout 300 codesign --force --timestamp --options runtime --sign 'Developer ID Application: Mohamed  Wahba (S8M7SZCV9G)' 'flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/window_manager.framework'
-/Users/runner/work/_temp/009b4d7d-ca58-4698-9620-5107b7a11515.sh: line 29: timeout: command not found
-+ echo '  (sign warn: flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/window_manager.framework)'
-  (sign warn: flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/window_manager.framework)
-+ for fw in '"$APP/Contents/Frameworks/"*.framework'
-+ '[' -d 'flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/window_size.framework' ']'
-+ SIGN 'flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/window_size.framework'
-+ timeout 300 codesign --force --timestamp --options runtime --sign 'Developer ID Application: Mohamed  Wahba (S8M7SZCV9G)' 'flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/window_size.framework'
-/Users/runner/work/_temp/009b4d7d-ca58-4698-9620-5107b7a11515.sh: line 29: timeout: command not found
-+ echo '  (sign warn: flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/window_size.framework)'
-  (sign warn: flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/window_size.framework)
-+ for dl in '"$APP/Contents/Frameworks/"*.dylib'
-+ '[' -e 'flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/liblibrustdesk.dylib' ']'
-+ SIGN 'flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/liblibrustdesk.dylib'
-+ timeout 300 codesign --force --timestamp --options runtime --sign 'Developer ID Application: Mohamed  Wahba (S8M7SZCV9G)' 'flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/liblibrustdesk.dylib'
-/Users/runner/work/_temp/009b4d7d-ca58-4698-9620-5107b7a11515.sh: line 29: timeout: command not found
-+ echo '  (sign warn: flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/liblibrustdesk.dylib)'
-  (sign warn: flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/liblibrustdesk.dylib)
-+ find 'flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents' -type d '(' -name '*.app' -o -name '*.xpc' ')' '!' -path 'flutter/build/macos/Build/Products/Release/Konnect Me.app' -print0
-+ IFS=
-+ read -r -d '' a
-+ '[' -n flutter/macos/Runner/Release.entitlements ']'
-+ timeout 900 codesign --force --timestamp --options runtime --entitlements flutter/macos/Runner/Release.entitlements --sign 'Developer ID Application: Mohamed  Wahba (S8M7SZCV9G)' 'flutter/build/macos/Build/Products/Release/Konnect Me.app'
-/Users/runner/work/_temp/009b4d7d-ca58-4698-9620-5107b7a11515.sh: line 40: timeout: command not found
-+ echo 'codesign FAILED/timed out'
-codesign FAILED/timed out
-+ IDENTITY=
-+ '[' -n '' ']'
+-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/screen_retriever.framework/Versions/Current/.
+--validated:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/App.framework/Versions/Current/.
+--validated:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/screen_retriever.framework/Versions/Current/.
+--prepared:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/url_launcher_macos.framework/Versions/Current/.
+--prepared:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/window_size.framework/Versions/Current/.
+--validated:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/window_size.framework/Versions/Current/.
+--validated:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/url_launcher_macos.framework/Versions/Current/.
+--prepared:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/liblibrustdesk.dylib
+--validated:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/liblibrustdesk.dylib
+flutter/build/macos/Build/Products/Release/Konnect Me.app: valid on disk
+flutter/build/macos/Build/Products/Release/Konnect Me.app: satisfies its Designated Requirement
++ echo 'app signature OK'
+app signature OK
 ++ mktemp -d
-+ STAGE=/var/folders/g3/pffjr_y96bq06blnkf72x_hw0000gn/T/tmp.FF6YjmihEI
-+ ditto 'flutter/build/macos/Build/Products/Release/Konnect Me.app' '/var/folders/g3/pffjr_y96bq06blnkf72x_hw0000gn/T/tmp.FF6YjmihEI/Konnect Me.app'
-+ ln -s /Applications /var/folders/g3/pffjr_y96bq06blnkf72x_hw0000gn/T/tmp.FF6YjmihEI/Applications
++ STAGE=/var/folders/g3/pffjr_y96bq06blnkf72x_hw0000gn/T/tmp.OfSgoOVRiD
++ ditto 'flutter/build/macos/Build/Products/Release/Konnect Me.app' '/var/folders/g3/pffjr_y96bq06blnkf72x_hw0000gn/T/tmp.OfSgoOVRiD/Konnect Me.app'
++ ln -s /Applications /var/folders/g3/pffjr_y96bq06blnkf72x_hw0000gn/T/tmp.OfSgoOVRiD/Applications
 + DMG=/Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg
-+ hdiutil create -volname 'Konnect Me' -srcfolder /var/folders/g3/pffjr_y96bq06blnkf72x_hw0000gn/T/tmp.FF6YjmihEI -ov -format UDZO /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg
++ hdiutil create -volname 'Konnect Me' -srcfolder /var/folders/g3/pffjr_y96bq06blnkf72x_hw0000gn/T/tmp.OfSgoOVRiD -ov -format UDZO /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg
 created: /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg
 + ls -la /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg
--rw-r--r--@ 1 runner  staff  27538684 Jul 23 19:47 /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg
+-rw-r--r--@ 1 runner  staff  27637945 Jul 23 21:08 /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg
 ++ stat -f%z /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg
-+ SZ=27538684
-+ echo 'DMG size: 27538684 bytes'
-DMG size: 27538684 bytes
-+ '[' 27538684 -lt 5000000 ']'
++ SZ=27637945
++ echo 'DMG size: 27637945 bytes'
+DMG size: 27637945 bytes
++ '[' 27637945 -lt 5000000 ']'
 + NLOG=/Users/runner/work/konnect-me/konnect-me/notary-aarch64.log
 + :
-+ '[' -n '' ']'
++ '[' -n 'Developer ID Application: Mohamed  Wahba (S8M7SZCV9G)' ']'
++ timeout 300 codesign --force --timestamp --sign 'Developer ID Application: Mohamed  Wahba (S8M7SZCV9G)' /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg
++ perl -e 'alarm(shift); exec(@ARGV)' 300 codesign --force --timestamp --sign 'Developer ID Application: Mohamed  Wahba (S8M7SZCV9G)' /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg
++ '[' -n development@rootkore.com ']'
++ '[' -n jrba-wybi-lbhy-civp ']'
++ '[' -n S8M7SZCV9G ']'
++ set +e
++ echo 'submitting to Apple notary…'
+submitting to Apple notary…
++ timeout 2700 xcrun notarytool submit /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg --apple-id development@rootkore.com --password jrba-wybi-lbhy-civp --team-id S8M7SZCV9G --wait --timeout 40m
++ cat /Users/runner/work/konnect-me/konnect-me/notary-aarch64.log
++ perl -e 'alarm(shift); exec(@ARGV)' 2700 xcrun notarytool submit /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg --apple-id development@rootkore.com --password jrba-wybi-lbhy-civp --team-id S8M7SZCV9G --wait --timeout 40m
+Conducting pre-submission checks for Konnect-Me-macos-aarch64.dmg and initiating connection to the Apple notary service...
+Submission ID received
+  id: 58ae8d7a-c301-4715-ae80-d8aac934db36
+Successfully uploaded file
+  id: 58ae8d7a-c301-4715-ae80-d8aac934db36
+  path: /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg
+Waiting for processing to complete. Wait timeout is set to 2400.0 second(s).
+Current status: In Progress...Current status: In Progress....Current status: In Progress.....Current status: In Progress......Current status: Invalid.......Processing complete
+  id: 58ae8d7a-c301-4715-ae80-d8aac934db36
+  status: Invalid
+
+++ grep -oiE 'id: [0-9a-f-]{36}' /Users/runner/work/konnect-me/konnect-me/notary-aarch64.log
+++ head -1
+++ awk '{print $NF}'
++ SID=58ae8d7a-c301-4715-ae80-d8aac934db36
++ grep -q 'status: Accepted' /Users/runner/work/konnect-me/konnect-me/notary-aarch64.log
++ echo 'not accepted — fetching detailed notary log (id=58ae8d7a-c301-4715-ae80-d8aac934db36)'
+not accepted — fetching detailed notary log (id=58ae8d7a-c301-4715-ae80-d8aac934db36)
++ '[' -n 58ae8d7a-c301-4715-ae80-d8aac934db36 ']'
++ xcrun notarytool log 58ae8d7a-c301-4715-ae80-d8aac934db36 --apple-id development@rootkore.com --password jrba-wybi-lbhy-civp --team-id S8M7SZCV9G
++ cat /Users/runner/work/konnect-me/konnect-me/notary-aarch64.log
++ perl -e 'alarm(shift); exec(@ARGV)' 2700 xcrun notarytool submit /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg --apple-id development@rootkore.com --password jrba-wybi-lbhy-civp --team-id S8M7SZCV9G --wait --timeout 40m
+Conducting pre-submission checks for Konnect-Me-macos-aarch64.dmg and initiating connection to the Apple notary service...
+Submission ID received
+  id: 58ae8d7a-c301-4715-ae80-d8aac934db36
+Successfully uploaded file
+  id: 58ae8d7a-c301-4715-ae80-d8aac934db36
+  path: /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg
+Waiting for processing to complete. Wait timeout is set to 2400.0 second(s).
+Current status: In Progress...Current status: In Progress....Current status: In Progress.....Current status: In Progress......Current status: Invalid.......Processing complete
+  id: 58ae8d7a-c301-4715-ae80-d8aac934db36
+  status: Invalid
+
+{
+  "logFormatVersion": 1,
+  "jobId": "58ae8d7a-c301-4715-ae80-d8aac934db36",
+  "status": "Invalid",
+  "statusSummary": "Archive contains critical validation errors",
+  "statusCode": 4000,
+  "archiveFilename": "Konnect-Me-macos-aarch64.dmg",
+  "uploadDate": "2026-07-23T21:08:07.030Z",
+  "sha256": "110f05291226547538a809ed80ae471c8bf7a4d7efc4f3888d018a96274f606c",
+  "ticketContents": null,
+  "issues": [
+    {
+      "severity": "error",
+      "code": null,
+      "path": "Konnect-Me-macos-aarch64.dmg/Konnect Me.app/Contents/MacOS/service",
+      "message": "The binary is not signed with a valid Developer ID certificate.",
+      "docUrl": "https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution/resolving_common_notarization_issues#3087721",
+      "architecture": "arm64"
+    },
+    {
+      "severity": "error",
+      "code": null,
+      "path": "Konnect-Me-macos-aarch64.dmg/Konnect Me.app/Contents/MacOS/service",
+      "message": "The signature does not include a secure timestamp.",
+      "docUrl": "https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution/resolving_common_notarization_issues#3087733",
+      "architecture": "arm64"
+    },
+    {
+      "severity": "error",
+      "code": null,
+      "path": "Konnect-Me-macos-aarch64.dmg/Konnect Me.app/Contents/MacOS/service",
+      "message": "The executable does not have the hardened runtime enabled.",
+      "docUrl": "https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution/resolving_common_notarization_issues#3087724",
+      "architecture": "arm64"
+    }
+  ]
+}
++ set -e
 
 ### build.log tail ###
 ) (1.4.1 available)
@@ -117,7 +201,7 @@ Changed 16 dependencies!
 141 packages have newer versions incompatible with dependency constraints.
 Try `flutter pub outdated` for more information.
 
-Running pod install...                                           2,938ms
+Running pod install...                                              3.9s
 Building macOS application...                                   
 --- xcodebuild: WARNING: Using the first of multiple matching destinations:
 { platform:macOS, arch:arm64, id:0000FE00-4E3C58738E9617E1, name:My Mac }
