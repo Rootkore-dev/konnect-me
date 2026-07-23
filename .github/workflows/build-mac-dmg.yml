@@ -24,11 +24,24 @@ jobs:
           - { os: macos-14,        arch: aarch64, target: aarch64-apple-darwin, vcpkg-triplet: arm64-osx }
           - { os: macos-15-intel,  arch: x86_64,  target: x86_64-apple-darwin,  vcpkg-triplet: x64-osx  }
     runs-on: ${{ matrix.job.os }}
+    env:
+      MACOS_P12_BASE64: ${{ secrets.MACOS_P12_BASE64 }}
+      MACOS_P12_PASSWORD: ${{ secrets.MACOS_P12_PASSWORD }}
+      APPLE_ID: ${{ secrets.APPLE_ID }}
+      APPLE_APP_PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
+      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
     steps:
       - name: Checkout branding repo
         uses: actions/checkout@v4
         with:
           path: branding-repo
+
+      - name: Import signing certificate (if configured)
+        if: ${{ env.MACOS_P12_BASE64 != '' }}
+        uses: apple-actions/import-codesign-certs@v3
+        with:
+          p12-file-base64: ${{ secrets.MACOS_P12_BASE64 }}
+          p12-password: ${{ secrets.MACOS_P12_PASSWORD }}
 
       - name: Clone RustDesk source
         run: git clone --depth 1 --branch "$RUSTDESK_TAG" --recurse-submodules https://github.com/rustdesk/rustdesk rustdesk
@@ -121,8 +134,21 @@ jobs:
           PLIST="$APP/Contents/Info.plist"
           /usr/libexec/PlistBuddy -c "Set :CFBundleName Konnect Me" "$PLIST" || true
           /usr/libexec/PlistBuddy -c "Set :CFBundleDisplayName Konnect Me" "$PLIST" || true
+
+          # --- code signing (if a Developer ID identity was imported) ---
+          IDENTITY=$(security find-identity -v -p codesigning 2>/dev/null | grep "Developer ID Application" | head -1 | sed -E 's/.*"(.*)"/\1/')
+          if [ -n "$IDENTITY" ]; then
+            echo "signing app with: $IDENTITY"
+            # sign nested dylibs/frameworks first, then the app bundle (hardened runtime)
+            find "$APP/Contents" -type f \( -name "*.dylib" -o -name "*.so" \) -print0 2>/dev/null \
+              | xargs -0 -I{} codesign --force --timestamp --options runtime --sign "$IDENTITY" "{}" || true
+            codesign --force --deep --timestamp --options runtime --sign "$IDENTITY" "$APP"
+            codesign --verify --deep --strict "$APP" && echo "app signature OK"
+          else
+            echo "no signing identity — building UNSIGNED"
+          fi
+
           # Plain compressed DMG with an Applications drop target (no AppleScript/Finder).
-          # Use ditto (preserves .app bundle symlinks; cp -R can corrupt them).
           STAGE="$(mktemp -d)"
           ditto "$APP" "$STAGE/Konnect Me.app"
           ln -s /Applications "$STAGE/Applications"
@@ -132,6 +158,18 @@ jobs:
           SZ=$(stat -f%z "$DMG")
           echo "DMG size: $SZ bytes"
           if [ "$SZ" -lt 5000000 ]; then echo "DMG too small ($SZ) — app bundle missing"; exit 1; fi
+
+          # --- sign + notarize + staple the DMG (if identity + notary creds present) ---
+          if [ -n "$IDENTITY" ]; then
+            codesign --force --timestamp --sign "$IDENTITY" "$DMG" || true
+            if [ -n "$APPLE_ID" ] && [ -n "$APPLE_APP_PASSWORD" ] && [ -n "$APPLE_TEAM_ID" ]; then
+              echo "submitting to Apple notary…"
+              xcrun notarytool submit "$DMG" --apple-id "$APPLE_ID" --password "$APPLE_APP_PASSWORD" --team-id "$APPLE_TEAM_ID" --wait
+              xcrun stapler staple "$DMG" && echo "notarized + stapled ✅"
+            else
+              echo "notary creds missing — signed but NOT notarized"
+            fi
+          fi
 
       - name: Capture logs to repo (on failure)
         if: failure()
