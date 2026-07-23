@@ -41,8 +41,10 @@ cp "$BRAND/scrap-generated/yuv_ffi.rs" libs/scrap/generated/yuv_ffi.rs
 perl -0777 -i -pe 's/generate_bindings\(&ffi_header, &includes, &ffi_rs, &exact_file, regex\);/if exact_file.exists() { std::fs::copy(&exact_file, &ffi_rs).unwrap(); } else { generate_bindings(&ffi_header, &includes, &ffi_rs, &exact_file, regex); }/g' libs/scrap/build.rs
 echo "build.rs patched:"; grep -n 'exact_file.exists' libs/scrap/build.rs | head
 
-echo "== 5. display name in AppInfo.xcconfig (best-effort) =="
-XC="flutter/macos/Runner/Configs/AppInfo.xcconfig"
-[ -f "$XC" ] && perl -i -pe 's/^PRODUCT_NAME\s*=.*/PRODUCT_NAME = Konnect Me/' "$XC" && grep -n PRODUCT_NAME "$XC" || true
+echo "== 5. display name: do NOT change PRODUCT_NAME here =="
+# build.py hardcodes 'RustDesk.app' and Xcode dislikes spaces in PRODUCT_NAME,
+# so we keep the build name as RustDesk and rename the bundle to 'Konnect Me'
+# AFTER the build (done in the DMG workflow step, incl. CFBundleName).
+echo "(kept PRODUCT_NAME=RustDesk; renamed post-build)"
 
 echo "== branding applied =="

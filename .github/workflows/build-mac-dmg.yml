@@ -110,7 +110,10 @@ jobs:
           exec > >(tee "$GITHUB_WORKSPACE/dmg.log") 2>&1
           set -x
           PROD="flutter/build/macos/Build/Products/Release"
-          APP="$(ls -d "$PROD"/*.app | head -1)"
+          echo "=== products dir ==="; ls -la "$PROD" || true
+          find flutter/build -maxdepth 6 -name "*.app" -type d || true
+          APP="$(ls -d "$PROD"/*.app 2>/dev/null | head -1)"
+          if [ -z "$APP" ]; then echo "NO .app produced — flutter build macos failed"; exit 1; fi
           echo "built app bundle: $APP"
           if [ "$(basename "$APP")" != "Konnect Me.app" ]; then
             mv "$APP" "$PROD/Konnect Me.app"
@@ -124,9 +127,12 @@ jobs:
           STAGE="$(mktemp -d)"
           ditto "$APP" "$STAGE/Konnect Me.app"
           ln -s /Applications "$STAGE/Applications"
-          hdiutil create -volname "Konnect Me" -srcfolder "$STAGE" -ov -format UDZO \
-            "$GITHUB_WORKSPACE/Konnect-Me-macos-${{ matrix.job.arch }}.dmg"
-          ls -la "$GITHUB_WORKSPACE"/Konnect-Me-macos-*.dmg
+          DMG="$GITHUB_WORKSPACE/Konnect-Me-macos-${{ matrix.job.arch }}.dmg"
+          hdiutil create -volname "Konnect Me" -srcfolder "$STAGE" -ov -format UDZO "$DMG"
+          ls -la "$DMG"
+          SZ=$(stat -f%z "$DMG")
+          echo "DMG size: $SZ bytes"
+          if [ "$SZ" -lt 5000000 ]; then echo "DMG too small ($SZ) — app bundle missing"; exit 1; fi
 
       - name: Capture logs to repo (on failure)
         if: failure()
