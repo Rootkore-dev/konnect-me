@@ -164,6 +164,10 @@ jobs:
             fi
             find "$APP/Contents" -type d \( -name "*.app" -o -name "*.xpc" \) ! -path "$APP" -print0 2>/dev/null \
               | while IFS= read -r -d '' a; do SIGN "$a"; done
+            # helper executables that sit loose in Contents/MacOS next to the main binary
+            # (RustDesk ships a `service` helper here — Apple flags it if left unsigned).
+            find "$APP/Contents/MacOS" -type f -print0 2>/dev/null \
+              | while IFS= read -r -d '' x; do SIGN "$x"; done
             # outer bundle last, with entitlements so hardened runtime doesn't break Flutter's JIT
             if [ -n "$ENT" ]; then
               timeout 900 codesign --force --timestamp --options runtime --entitlements "$ENT" --sign "$IDENTITY" "$APP" \
