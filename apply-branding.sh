@@ -49,4 +49,19 @@ echo "== 5. display name: do NOT change PRODUCT_NAME here =="
 # AFTER the build (done in the DMG workflow step, incl. CFBundleName).
 echo "(kept PRODUCT_NAME=RustDesk; renamed post-build)"
 
+echo "== 6. in-app logo (RustDesk logo -> Konnect logo) =="
+for l in logo logo_light logo_dark; do
+  [ -f "$BRAND/logo/$l.png" ] && cp "$BRAND/logo/$l.png" "flutter/assets/$l.png" && echo "  installed assets/$l.png"
+done
+
+echo "== 7. display strings: 'Powered by RustDesk' -> 'Powered by Konnect Plus' =="
+perl -0777 -i -pe 's/\("powered_by_me",\s*"[^"]*"\)/("powered_by_me", "Powered by Konnect Plus")/' src/lang/en.rs
+grep -n 'powered_by_me' src/lang/en.rs | head -1
+
+echo "== 8. bake self-hosted console/API endpoint (login on our own site) =="
+# default api-server (unset by user) resolves to our HTTPS portal instead of http://<ip>:21114
+perl -0777 -i -pe 's/let s0 = get_custom_rendezvous_server\(custom\);/let s0 = String::new(); let _ = custom;/' src/common.rs
+perl -0777 -i -pe 's/"https:\/\/admin\.rustdesk\.com"\.to_owned\(\)/"https:\/\/me.konnect-plus.com".to_owned()/' src/common.rs
+echo "api-server bake:"; grep -n 'me.konnect-plus.com\|String::new(); let _ = custom' src/common.rs | head
+
 echo "== branding applied =="

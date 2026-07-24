@@ -1,9 +1,10 @@
 name: Build Konnect Me macOS DMG
 
 on:
-  # manual-only: the signed DMGs are already built. Re-enable `push` if the app
-  # source/branding changes and a full rebuild is needed.
   workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths-ignore: [ 'notary-trigger.txt', 'ci-log-*.txt', 'notary-*.log', '**.md' ]
 
 permissions:
   contents: write
@@ -200,7 +201,7 @@ jobs:
             if [ -n "$APPLE_ID" ] && [ -n "$APPLE_APP_PASSWORD" ] && [ -n "$APPLE_TEAM_ID" ]; then
               set +e
               echo "submitting to Apple notary…"
-              timeout 2700 xcrun notarytool submit "$DMG" --apple-id "$APPLE_ID" --password "$APPLE_APP_PASSWORD" --team-id "$APPLE_TEAM_ID" --wait --timeout 40m > "$NLOG" 2>&1
+              timeout 6000 xcrun notarytool submit "$DMG" --apple-id "$APPLE_ID" --password "$APPLE_APP_PASSWORD" --team-id "$APPLE_TEAM_ID" --wait --timeout 95m > "$NLOG" 2>&1
               cat "$NLOG"
               SID=$(grep -oiE 'id: [0-9a-f-]{36}' "$NLOG" | head -1 | awk '{print $NF}')
               if grep -q "status: Accepted" "$NLOG"; then
