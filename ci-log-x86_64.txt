@@ -2,18 +2,18 @@
 + perl -e 'alarm(shift); exec(@ARGV)' 6000 xcrun notarytool submit /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-x86_64.dmg --apple-id development@rootkore.com --password jrba-wybi-lbhy-civp --team-id S8M7SZCV9G --wait --timeout 95m
 Conducting pre-submission checks for Konnect-Me-macos-x86_64.dmg and initiating connection to the Apple notary service...
 Submission ID received
-  id: 21d6afbe-5565-4898-9a9f-228dce765a5c
+  id: ead354ec-01ed-4dad-80d4-644f2a60dcd5
 Successfully uploaded file
-  id: 21d6afbe-5565-4898-9a9f-228dce765a5c
+  id: ead354ec-01ed-4dad-80d4-644f2a60dcd5
   path: /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-x86_64.dmg
 Waiting for processing to complete. Wait timeout is set to 5700.0 second(s).
-Current status: In Progress...Current status: In Progress....Current status: In Progress.....Current status: In Progress......Current status: Accepted.......Processing complete
-  id: 21d6afbe-5565-4898-9a9f-228dce765a5c
+Current status: In Progress...Current status: In Progress....Current status: In Progress.....Current status: In Progress......Current status: In Progress.......Current status: Accepted........Processing complete
+  id: ead354ec-01ed-4dad-80d4-644f2a60dcd5
   status: Accepted
 
 
 ### dmg.log tail ###
-ntents/Frameworks/FMDB.framework/Versions/Current/.
+sions/Current/.
 --prepared:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/liblibrustdesk.dylib
 --validated:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/liblibrustdesk.dylib
 --prepared:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/libswiftCoreAudio.dylib
@@ -43,19 +43,19 @@ flutter/build/macos/Build/Products/Release/Konnect Me.app: satisfies its Designa
 + echo 'app signature OK'
 app signature OK
 ++ mktemp -d
-+ STAGE=/var/folders/8j/3c4g2vh16vgc8j40cj25qfqh0000gn/T/tmp.VL0rXT1KXf
-+ ditto 'flutter/build/macos/Build/Products/Release/Konnect Me.app' '/var/folders/8j/3c4g2vh16vgc8j40cj25qfqh0000gn/T/tmp.VL0rXT1KXf/Konnect Me.app'
-+ ln -s /Applications /var/folders/8j/3c4g2vh16vgc8j40cj25qfqh0000gn/T/tmp.VL0rXT1KXf/Applications
++ STAGE=/var/folders/8j/3c4g2vh16vgc8j40cj25qfqh0000gn/T/tmp.2lfScD8xsw
++ ditto 'flutter/build/macos/Build/Products/Release/Konnect Me.app' '/var/folders/8j/3c4g2vh16vgc8j40cj25qfqh0000gn/T/tmp.2lfScD8xsw/Konnect Me.app'
++ ln -s /Applications /var/folders/8j/3c4g2vh16vgc8j40cj25qfqh0000gn/T/tmp.2lfScD8xsw/Applications
 + DMG=/Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-x86_64.dmg
-+ hdiutil create -volname 'Konnect Me' -srcfolder /var/folders/8j/3c4g2vh16vgc8j40cj25qfqh0000gn/T/tmp.VL0rXT1KXf -ov -format UDZO /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-x86_64.dmg
++ hdiutil create -volname 'Konnect Me' -srcfolder /var/folders/8j/3c4g2vh16vgc8j40cj25qfqh0000gn/T/tmp.2lfScD8xsw -ov -format UDZO /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-x86_64.dmg
 created: /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-x86_64.dmg
 + ls -la /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-x86_64.dmg
--rw-r--r--@ 1 runner  staff  36197410 Jul 24 15:17 /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-x86_64.dmg
+-rw-r--r--@ 1 runner  staff  36498947 Jul 24 17:36 /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-x86_64.dmg
 ++ stat -f%z /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-x86_64.dmg
-+ SZ=36197410
-+ echo 'DMG size: 36197410 bytes'
-DMG size: 36197410 bytes
-+ '[' 36197410 -lt 5000000 ']'
++ SZ=36498947
++ echo 'DMG size: 36498947 bytes'
+DMG size: 36498947 bytes
++ '[' 36498947 -lt 5000000 ']'
 + NLOG=/Users/runner/work/konnect-me/konnect-me/notary-x86_64.log
 + :
 + '[' -n 'Developer ID Application: Mohamed  Wahba (S8M7SZCV9G)' ']'
@@ -72,19 +72,19 @@ submitting to Apple notary…
 + perl -e 'alarm(shift); exec(@ARGV)' 6000 xcrun notarytool submit /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-x86_64.dmg --apple-id development@rootkore.com --password jrba-wybi-lbhy-civp --team-id S8M7SZCV9G --wait --timeout 95m
 Conducting pre-submission checks for Konnect-Me-macos-x86_64.dmg and initiating connection to the Apple notary service...
 Submission ID received
-  id: 21d6afbe-5565-4898-9a9f-228dce765a5c
+  id: ead354ec-01ed-4dad-80d4-644f2a60dcd5
 Successfully uploaded file
-  id: 21d6afbe-5565-4898-9a9f-228dce765a5c
+  id: ead354ec-01ed-4dad-80d4-644f2a60dcd5
   path: /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-x86_64.dmg
 Waiting for processing to complete. Wait timeout is set to 5700.0 second(s).
-Current status: In Progress...Current status: In Progress....Current status: In Progress.....Current status: In Progress......Current status: Accepted.......Processing complete
-  id: 21d6afbe-5565-4898-9a9f-228dce765a5c
+Current status: In Progress...Current status: In Progress....Current status: In Progress.....Current status: In Progress......Current status: In Progress.......Current status: Accepted........Processing complete
+  id: ead354ec-01ed-4dad-80d4-644f2a60dcd5
   status: Accepted
 
 ++ grep -oiE 'id: [0-9a-f-]{36}' /Users/runner/work/konnect-me/konnect-me/notary-x86_64.log
 ++ head -1
 ++ awk '{print $NF}'
-+ SID=21d6afbe-5565-4898-9a9f-228dce765a5c
++ SID=ead354ec-01ed-4dad-80d4-644f2a60dcd5
 + grep -q 'status: Accepted' /Users/runner/work/konnect-me/konnect-me/notary-x86_64.log
 + xcrun stapler staple /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-x86_64.dmg
 Processing: /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-x86_64.dmg
@@ -136,7 +136,7 @@ Changed 16 dependencies!
 141 packages have newer versions incompatible with dependency constraints.
 Try `flutter pub outdated` for more information.
 
-Running pod install...                                              5.4s
+Running pod install...                                              6.3s
 Building macOS application...                                   
 In file included from /Users/runner/.pub-cache/git/flutter_texture_rgba_renderer-42797e0f03141dc2b585f76c64a13974508058b4/macos/Classes/TextureRgbaApi.m:9:
 /Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/texture_rgba_renderer/texture_rgba_renderer.framework/Headers/texture_rgba_renderer-Swift.h:312:31: warning: 'objc_ownership' only applies to Objective-C object or block pointer types; type here is 'CVPixelBufferRef _Nullable' (aka 'struct __CVBuffer *') [-Wignored-attributes]
