@@ -1,9 +1,9 @@
 name: Build Konnect Me macOS DMG
 
 on:
+  # manual-only: the signed DMGs are already built. Re-enable `push` if the app
+  # source/branding changes and a full rebuild is needed.
   workflow_dispatch:
-  push:
-    branches: [ main ]
 
 permissions:
   contents: write

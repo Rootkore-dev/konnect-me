@@ -1,0 +1,71 @@
+name: Notarize existing Konnect Me DMGs
+
+# Fast path: the heavy build already produced correctly-SIGNED DMGs and pushed them
+# to the macos-<arch> releases. Apple's notary queue was just slow. This job skips the
+# 75-min rebuild: it downloads those signed DMGs, notarizes with a generous timeout,
+# staples the ticket, and republishes — so it iterates in minutes, not hours.
+# Trigger by editing notary-trigger.txt and pushing.
+
+on:
+  push:
+    paths: [ 'notary-trigger.txt' ]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: konnect-notarize
+  cancel-in-progress: true
+
+jobs:
+  notarize:
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [ aarch64, x86_64 ]
+    runs-on: macos-14   # notarytool + stapler are arch-independent
+    steps:
+      - name: Notarize, staple, and republish
+        env:
+          GH_TOKEN: ${{ github.token }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_APP_PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          set -x
+          A="${{ matrix.arch }}"
+          TAG="macos-$A"
+          DMG="Konnect-Me-macos-$A.dmg"
+          NLOG="notary-$A.log"
+          # macOS runners have no GNU `timeout`
+          timeout() { perl -e 'alarm(shift); exec(@ARGV)' "$@"; }
+
+          gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --pattern "$DMG" --clobber
+          ls -la "$DMG"
+
+          if [ -z "$APPLE_ID" ] || [ -z "$APPLE_APP_PASSWORD" ] || [ -z "$APPLE_TEAM_ID" ]; then
+            echo "notary creds missing"; exit 1
+          fi
+
+          set +e
+          # generous 95-min wait so Apple's queue never times us out again
+          timeout 6000 xcrun notarytool submit "$DMG" \
+            --apple-id "$APPLE_ID" --password "$APPLE_APP_PASSWORD" --team-id "$APPLE_TEAM_ID" \
+            --wait --timeout 95m > "$NLOG" 2>&1
+          cat "$NLOG"
+          SID=$(grep -oiE 'id: [0-9a-f-]{36}' "$NLOG" | head -1 | awk '{print $NF}')
+          if grep -q "status: Accepted" "$NLOG"; then
+            xcrun stapler staple "$DMG" && echo "STAPLED ✅"
+            xcrun stapler validate "$DMG" && echo "staple valid ✅"
+            spctl -a -t open --context context:primary-signature -v "$DMG" 2>&1 || true
+          else
+            echo "NOT accepted — fetching detailed notary log (id=$SID)"
+            [ -n "$SID" ] && xcrun notarytool log "$SID" \
+              --apple-id "$APPLE_ID" --password "$APPLE_APP_PASSWORD" --team-id "$APPLE_TEAM_ID" >> "$NLOG" 2>&1
+            cat "$NLOG"
+          fi
+          set -e
+
+          # republish the (now stapled) DMG + the notary log
+          gh release upload "$TAG" "$DMG"  --clobber --repo "$GITHUB_REPOSITORY"
+          gh release upload "$TAG" "$NLOG" --clobber --repo "$GITHUB_REPOSITORY"
