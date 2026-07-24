@@ -61,7 +61,7 @@ grep -n 'powered_by_me' src/lang/en.rs | head -1
 echo "== 8. bake self-hosted console/API endpoint (login on our own site) =="
 # default api-server (unset by user) resolves to our HTTPS portal instead of http://<ip>:21114
 perl -0777 -i -pe 's/let s0 = get_custom_rendezvous_server\(custom\);/let s0 = String::new(); let _ = custom;/' src/common.rs
-perl -0777 -i -pe 's/"https:\/\/admin\.rustdesk\.com"\.to_owned\(\)/"https:\/\/me.konnect-plus.com".to_owned()/' src/common.rs
+perl -0777 -i -pe 's/"https:\/\/admin\.rustdesk\.com"\.to_owned\(\)/"https:\/\/dashboard.konnect-plus.com".to_owned()/' src/common.rs
 echo "api-server bake:"; grep -n 'me.konnect-plus.com\|String::new(); let _ = custom' src/common.rs | head
 
 echo "== branding applied =="
