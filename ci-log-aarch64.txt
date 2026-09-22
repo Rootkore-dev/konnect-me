@@ -2,59 +2,58 @@
 + perl -e 'alarm(shift); exec(@ARGV)' 6000 xcrun notarytool submit /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg --apple-id development@rootkore.com --password jrba-wybi-lbhy-civp --team-id S8M7SZCV9G --wait --timeout 95m
 Conducting pre-submission checks for Konnect-Me-macos-aarch64.dmg and initiating connection to the Apple notary service...
 Submission ID received
-  id: e98f2b8b-cffe-4d6d-97db-2420281968d7
+  id: 4b75c98d-69f0-490a-8433-06d87e34edcf
 Successfully uploaded file
-  id: e98f2b8b-cffe-4d6d-97db-2420281968d7
+  id: 4b75c98d-69f0-490a-8433-06d87e34edcf
   path: /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg
 Waiting for processing to complete. Wait timeout is set to 5700.0 second(s).
 Current status: In Progress...Current status: In Progress....Current status: In Progress.....Current status: In Progress......Current status: Accepted.......Processing complete
-  id: e98f2b8b-cffe-4d6d-97db-2420281968d7
+  id: 4b75c98d-69f0-490a-8433-06d87e34edcf
   status: Accepted
 
 
 ### dmg.log tail ###
-ework/Versions/Current/.
---validated:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/texture_rgba_renderer.framework/Versions/Current/.
---prepared:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/device_info_plus.framework/Versions/Current/.
+ers/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/texture_rgba_renderer.framework/Versions/Current/.
 --validated:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/device_info_plus.framework/Versions/Current/.
---prepared:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/FMDB.framework/Versions/Current/.
---validated:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/FMDB.framework/Versions/Current/.
+--validated:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/texture_rgba_renderer.framework/Versions/Current/.
+--prepared:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/desktop_multi_window.framework/Versions/Current/.
+--validated:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/desktop_multi_window.framework/Versions/Current/.
 --prepared:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/path_provider_foundation.framework/Versions/Current/.
 --validated:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/path_provider_foundation.framework/Versions/Current/.
---prepared:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/App.framework/Versions/Current/.
---validated:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/App.framework/Versions/Current/.
---prepared:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/liblibrustdesk.dylib
---validated:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/liblibrustdesk.dylib
---prepared:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/file_selector_macos.framework/Versions/Current/.
+--prepared:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/FMDB.framework/Versions/Current/.
 --prepared:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/package_info_plus.framework/Versions/Current/.
---validated:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/file_selector_macos.framework/Versions/Current/.
+--validated:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/FMDB.framework/Versions/Current/.
 --validated:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/package_info_plus.framework/Versions/Current/.
+--prepared:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/file_selector_macos.framework/Versions/Current/.
 --prepared:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/window_manager.framework/Versions/Current/.
+--validated:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/file_selector_macos.framework/Versions/Current/.
 --validated:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/window_manager.framework/Versions/Current/.
 --prepared:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/screen_retriever.framework/Versions/Current/.
 --validated:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/screen_retriever.framework/Versions/Current/.
+--prepared:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/url_launcher_macos.framework/Versions/Current/.
 --prepared:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/window_size.framework/Versions/Current/.
 --validated:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/window_size.framework/Versions/Current/.
---prepared:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/url_launcher_macos.framework/Versions/Current/.
 --validated:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/url_launcher_macos.framework/Versions/Current/.
+--prepared:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/liblibrustdesk.dylib
+--validated:/Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/Konnect Me.app/Contents/Frameworks/liblibrustdesk.dylib
 flutter/build/macos/Build/Products/Release/Konnect Me.app: valid on disk
 flutter/build/macos/Build/Products/Release/Konnect Me.app: satisfies its Designated Requirement
 + echo 'app signature OK'
 app signature OK
 ++ mktemp -d
-+ STAGE=/var/folders/g3/pffjr_y96bq06blnkf72x_hw0000gn/T/tmp.BhrE75FKvS
-+ ditto 'flutter/build/macos/Build/Products/Release/Konnect Me.app' '/var/folders/g3/pffjr_y96bq06blnkf72x_hw0000gn/T/tmp.BhrE75FKvS/Konnect Me.app'
-+ ln -s /Applications /var/folders/g3/pffjr_y96bq06blnkf72x_hw0000gn/T/tmp.BhrE75FKvS/Applications
++ STAGE=/var/folders/s6/5hzmn6lx4dz5nxs7k_0slzph0000gn/T/tmp.zwIsfZ8oy6
++ ditto 'flutter/build/macos/Build/Products/Release/Konnect Me.app' '/var/folders/s6/5hzmn6lx4dz5nxs7k_0slzph0000gn/T/tmp.zwIsfZ8oy6/Konnect Me.app'
++ ln -s /Applications /var/folders/s6/5hzmn6lx4dz5nxs7k_0slzph0000gn/T/tmp.zwIsfZ8oy6/Applications
 + DMG=/Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg
-+ hdiutil create -volname 'Konnect Me' -srcfolder /var/folders/g3/pffjr_y96bq06blnkf72x_hw0000gn/T/tmp.BhrE75FKvS -ov -format UDZO /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg
++ hdiutil create -volname 'Konnect Me' -srcfolder /var/folders/s6/5hzmn6lx4dz5nxs7k_0slzph0000gn/T/tmp.zwIsfZ8oy6 -ov -format UDZO /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg
 created: /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg
 + ls -la /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg
--rw-r--r--@ 1 runner  staff  28028771 Jul 24 17:13 /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg
+-rw-r--r--@ 1 runner  staff  28030025 Sep 22 22:23 /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg
 ++ stat -f%z /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg
-+ SZ=28028771
-+ echo 'DMG size: 28028771 bytes'
-DMG size: 28028771 bytes
-+ '[' 28028771 -lt 5000000 ']'
++ SZ=28030025
++ echo 'DMG size: 28030025 bytes'
+DMG size: 28030025 bytes
++ '[' 28030025 -lt 5000000 ']'
 + NLOG=/Users/runner/work/konnect-me/konnect-me/notary-aarch64.log
 + :
 + '[' -n 'Developer ID Application: Mohamed  Wahba (S8M7SZCV9G)' ']'
@@ -71,19 +70,19 @@ submitting to Apple notary…
 + perl -e 'alarm(shift); exec(@ARGV)' 6000 xcrun notarytool submit /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg --apple-id development@rootkore.com --password jrba-wybi-lbhy-civp --team-id S8M7SZCV9G --wait --timeout 95m
 Conducting pre-submission checks for Konnect-Me-macos-aarch64.dmg and initiating connection to the Apple notary service...
 Submission ID received
-  id: e98f2b8b-cffe-4d6d-97db-2420281968d7
+  id: 4b75c98d-69f0-490a-8433-06d87e34edcf
 Successfully uploaded file
-  id: e98f2b8b-cffe-4d6d-97db-2420281968d7
+  id: 4b75c98d-69f0-490a-8433-06d87e34edcf
   path: /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg
 Waiting for processing to complete. Wait timeout is set to 5700.0 second(s).
 Current status: In Progress...Current status: In Progress....Current status: In Progress.....Current status: In Progress......Current status: Accepted.......Processing complete
-  id: e98f2b8b-cffe-4d6d-97db-2420281968d7
+  id: 4b75c98d-69f0-490a-8433-06d87e34edcf
   status: Accepted
 
 ++ grep -oiE 'id: [0-9a-f-]{36}' /Users/runner/work/konnect-me/konnect-me/notary-aarch64.log
 ++ head -1
 ++ awk '{print $NF}'
-+ SID=e98f2b8b-cffe-4d6d-97db-2420281968d7
++ SID=4b75c98d-69f0-490a-8433-06d87e34edcf
 + grep -q 'status: Accepted' /Users/runner/work/konnect-me/konnect-me/notary-aarch64.log
 + xcrun stapler staple /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg
 Processing: /Users/runner/work/konnect-me/konnect-me/Konnect-Me-macos-aarch64.dmg
@@ -94,48 +93,48 @@ notarized + stapled ✅
 + set -e
 
 ### build.log tail ###
-) (1.4.1 available)
-  synchronized 3.3.0+3 (3.4.1+1 available)
+le)
 < term_glyph 1.2.1 (was 1.2.2) (1.2.2 available)
-< test_api 0.7.2 (was 0.7.6) (0.7.13 available)
-  uni_links_desktop 0.1.7 (0.2.0 available)
+< test_api 0.7.2 (was 0.7.6) (0.7.14 available)
+  uni_links_desktop 0.1.7 (discontinued replaced by protocol_handler)
   universal_io 2.2.2 (2.3.1 available)
   url_launcher 6.3.1 (6.3.2 available)
-  url_launcher_android 6.3.14 (6.3.32 available)
-  url_launcher_ios 6.3.3 (6.4.1 available)
-  url_launcher_linux 3.2.1 (3.2.2 available)
-  url_launcher_macos 3.2.2 (3.2.5 available)
+  url_launcher_android 6.3.14 (6.3.33 available)
+  url_launcher_ios 6.3.3 (6.4.2 available)
+  url_launcher_linux 3.2.1 (3.2.3 available)
+  url_launcher_macos 3.2.2 (3.2.6 available)
   url_launcher_web 2.3.3 (2.4.3 available)
-  url_launcher_windows 3.1.4 (3.1.5 available)
+  url_launcher_windows 3.1.4 (3.1.6 available)
   uuid 3.0.7 (4.6.0 available)
-  vector_graphics 1.1.18 (1.2.2 available)
-  vector_graphics_compiler 1.1.16 (1.2.6 available)
-  vector_math 2.1.4 (from transitive dependency to direct dependency) (2.4.1 available)
-  video_player 2.9.5 (2.13.0 available)
-  video_player_android 2.7.16 (2.12.0 available)
-  video_player_avfoundation 2.7.1 (2.11.0 available)
+  vector_graphics 1.1.18 (1.2.3 available)
+  vector_graphics_compiler 1.1.16 (1.3.0 available)
+  vector_math 2.1.4 (from transitive dependency to direct dependency) (2.4.3 available)
+  video_player 2.9.5 (2.14.0 available)
+  video_player_android 2.7.16 (2.12.2 available)
+  video_player_avfoundation 2.7.1 (2.12.0 available)
   video_player_platform_interface 6.3.0 (6.9.0 available)
   video_player_web 2.3.5 (2.4.0 available)
-+ vm_service 14.2.5 (15.2.0 available)
-  wakelock_plus 1.2.1 (1.7.0 available)
-  wakelock_plus_platform_interface 1.2.3 (1.6.0 available)
++ vm_service 14.2.5 (15.3.0 available)
+  wakelock_plus 1.2.1 (1.8.0 available)
+  wakelock_plus_platform_interface 1.2.3 (1.7.0 available)
   watcher 1.1.2 (1.2.1 available)
   web 0.5.1 (1.1.1 available)
   web_socket_channel 2.4.5 (3.0.3 available)
-  win32 5.10.1 (6.3.0 available)
+  win32 5.10.1 (6.4.0 available)
   win32_registry 1.1.5 (3.0.3 available)
   xml 6.5.0 (7.0.1 available)
+  yaml 3.1.3 (3.1.4 available)
   yaml_edit 2.2.2 (2.2.4 available)
 Changed 16 dependencies!
-1 package is discontinued.
-141 packages have newer versions incompatible with dependency constraints.
+2 packages are discontinued.
+154 packages have newer versions incompatible with dependency constraints.
 Try `flutter pub outdated` for more information.
 
-Running pod install...                                           2,594ms
+Running pod install...                                              3.0s
 Building macOS application...                                   
 --- xcodebuild: WARNING: Using the first of multiple matching destinations:
-{ platform:macOS, arch:arm64, id:0000FE00-4E3C58738E9617E1, name:My Mac }
-{ platform:macOS, arch:x86_64, id:0000FE00-4E3C58738E9617E1, name:My Mac }
+{ platform:macOS, arch:arm64, id:0000FE00-7CCC9802DA488B9F, name:My Mac }
+{ platform:macOS, arch:x86_64, id:0000FE00-7CCC9802DA488B9F, name:My Mac }
 In file included from /Users/runner/.pub-cache/git/flutter_texture_rgba_renderer-42797e0f03141dc2b585f76c64a13974508058b4/macos/Classes/TextureRgbaApi.m:9:
 /Users/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/macos/Build/Products/Release/texture_rgba_renderer/texture_rgba_renderer.framework/Headers/texture_rgba_renderer-Swift.h:307:31: warning: 'objc_ownership' only applies to Objective-C object or block pointer types; type here is 'CVPixelBufferRef _Nullable' (aka 'struct __CVBuffer *') [-Wignored-attributes]
 - (CVPixelBufferRef _Nullable __unsafe_unretained)copyPixelBuffer SWIFT_WARN_UNUSED_RESULT;
