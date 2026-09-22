@@ -1,0 +1,105 @@
+### apk.log tail ###
+is 1.6.0.
+e: /home/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/device_info_plus/.transforms/2705d7d1f38ab636561ad99cd6d95e51/transformed/out/jars/classes.jar!/META-INF/device_info_plus_release.kotlin_module: Module was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.1.0, expected version is 1.6.0.
+e: /home/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/external_path/.transforms/8ee98147e3d6f2f001e6d573ff8ad888/transformed/out/jars/classes.jar!/META-INF/external_path_release.kotlin_module: Module was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.1.0, expected version is 1.6.0.
+e: /home/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/package_info_plus/.transforms/8b9c1c57f1f0099a44d658df46eb5522/transformed/out/jars/classes.jar!/META-INF/package_info_plus_release.kotlin_module: Module was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.1.0, expected version is 1.6.0.
+e: /home/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/qr_code_scanner/.transforms/7b2fe10ca4ac9bcda55910746bdcdf71/transformed/out/jars/classes.jar!/META-INF/qr_code_scanner_release.kotlin_module: Module was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.1.0, expected version is 1.6.0.
+e: /home/runner/work/konnect-me/konnect-me/rustdesk/flutter/build/wakelock_plus/.transforms/cb71bb789c5b0a458c727d83957f16d5/transformed/out/jars/classes.jar!/META-INF/wakelock_plus_release.kotlin_module: Module was compiled with an incompatible version of Kotlin. The binary version of its metadata is 2.1.0, expected version is 1.6.0.
+e: /home/runner/.gradle/caches/transforms-3/d993b3b61532d056634ada7efd90b514/transformed/fragment-1.7.1/jars/classes.jar!/META-INF/fragment_release.kotlin_module: Module was compiled with an incompatible version of Kotlin. The binary version of its metadata is 1.8.0, expected version is 1.6.0.
+e: /home/runner/.gradle/caches/transforms-3/8df8910cb1c7f132a69f8867ef87fa37/transformed/jetified-activity-1.9.3/jars/classes.jar!/META-INF/activity_release.kotlin_module: Module was compiled with an incompatible version of Kotlin. The binary version of its metadata is 1.8.0, expected version is 1.6.0.
+e: /home/runner/.gradle/caches/transforms-3/764649f7595ecbbf76c17892033d31e4/transformed/jetified-lifecycle-livedata-core-ktx-2.7.0/jars/classes.jar!/META-INF/lifecycle-livedata-core-ktx_release.kotlin_module: Module was compiled with an incompatible version of Kotlin. The binary version of its metadata is 1.8.0, expected version is 1.6.0.
+e: /home/runner/.gradle/caches/transforms-3/726b5a4f23234631272e8e9040674b3c/transformed/lifecycle-livedata-2.7.0/jars/classes.jar!/META-INF/lifecycle-livedata_release.kotlin_module: Module was compiled with an incompatible version of Kotlin. The binary version of its metadata is 1.8.0, expected version is 1.6.0.
+e: /home/runner/.gradle/caches/transforms-3/ded323b860f9caa53226af89dc213295/transformed/lifecycle-viewmodel-2.7.0/jars/classes.jar!/META-INF/lifecycle-viewmodel_release.kotlin_module: Module was compiled with an incompatible version of Kotlin. The binary version of its metadata is 1.8.0, expected version is 1.6.0.
+e: /home/runner/.gradle/caches/transforms-3/750945ec9fd09a1b03b7ef57e0d4a643/transformed/lifecycle-livedata-core-2.7.0/jars/classes.jar!/META-INF/lifecycle-livedata-core_release.kotlin_module: Module was compiled with an incompatible version of Kotlin. The binary version of its metadata is 1.8.0, expected version is 1.6.0.
+e: /home/runner/.gradle/caches/transforms-3/2aa51086da6ac782489ce5110bb54b14/transformed/jetified-lifecycle-process-2.7.0/jars/classes.jar!/META-INF/lifecycle-process_release.kotlin_module: Module was compiled with an incompatible version of Kotlin. The binary version of its metadata is 1.8.0, expected version is 1.6.0.
+e: /home/runner/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-common/2.7.0/85334205d65cca70ed0109c3acbd29e22a2d9cb1/lifecycle-common-2.7.0.jar!/META-INF/lifecycle-common.kotlin_module: Module was compiled with an incompatible version of Kotlin. The binary version of its metadata is 1.8.0, expected version is 1.6.0.
+e: /home/runner/.gradle/caches/transforms-3/5428c48aa79703d444e32f07a786fb9f/transformed/lifecycle-runtime-2.7.0/jars/classes.jar!/META-INF/lifecycle-runtime_release.kotlin_module: Module was compiled with an incompatible version of Kotlin. The binary version of its metadata is 1.8.0, expected version is 1.6.0.
+e: /home/runner/.gradle/caches/transforms-3/448324f1650f247d9869c63f186825d9/transformed/jetified-lifecycle-viewmodel-savedstate-2.7.0/jars/classes.jar!/META-INF/lifecycle-viewmodel-savedstate_release.kotlin_module: Module was compiled with an incompatible version of Kotlin. The binary version of its metadata is 1.8.0, expected version is 1.6.0.
+e: /home/runner/.gradle/caches/transforms-3/19a35b464539fdd5cb486a81554f3557/transformed/jetified-core-ktx-1.13.1/jars/classes.jar!/META-INF/core-ktx_release.kotlin_module: Module was compiled with an incompatible version of Kotlin. The binary version of its metadata is 1.8.0, expected version is 1.6.0.
+e: /home/runner/.gradle/caches/transforms-3/6fa550a61977826600b1573e91e8a50e/transformed/core-1.13.1/jars/classes.jar!/META-INF/core_release.kotlin_module: Module was compiled with an incompatible version of Kotlin. The binary version of its metadata is 1.8.0, expected version is 1.6.0.
+e: /home/runner/.gradle/caches/transforms-3/bd53d661abbfd29e189d081c8f6433dc/transformed/jetified-window-1.2.0/jars/classes.jar!/META-INF/window_release.kotlin_module: Module was compiled with an incompatible version of Kotlin. The binary version of its metadata is 1.8.0, expected version is 1.6.0.
+e: /home/runner/.gradle/caches/transforms-3/f89a4f5a9e4cc69a3b0a0ac88955e6ef/transformed/jetified-window-java-1.2.0/jars/classes.jar!/META-INF/window-java_release.kotlin_module: Module was compiled with an incompatible version of Kotlin. The binary version of its metadata is 1.8.0, expected version is 1.6.0.
+e: /home/runner/.gradle/caches/transforms-3/0694415225f7cacef493154d45bfc26c/transformed/jetified-savedstate-1.2.1/jars/classes.jar!/META-INF/savedstate_release.kotlin_module: Module was compiled with an incompatible version of Kotlin. The binary version of its metadata is 1.8.0, expected version is 1.6.0.
+e: /home/runner/.gradle/caches/modules-2/files-2.1/androidx.annotation/annotation-jvm/1.9.1/b17951747e38bf3986a24431b9ba0d039958aa5f/annotation-jvm-1.9.1.jar!/META-INF/annotation.kotlin_module: Module was compiled with an incompatible version of Kotlin. The binary version of its metadata is 1.9.0, expected version is 1.6.0.
+e: /home/runner/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm/1.7.1/63a0779cf668e2a47d13fda7c3b0c4f8dc7762f4/kotlinx-coroutines-core-jvm-1.7.1.jar!/META-INF/kotlinx-coroutines-core.kotlin_module: Module was compiled with an incompatible version of Kotlin. The binary version of its metadata is 1.8.0, expected version is 1.6.0.
+e: /home/runner/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-android/1.7.1/c2d86b569f10b7fc7e28d3f50c0eed97897d77a7/kotlinx-coroutines-android-1.7.1.jar!/META-INF/kotlinx-coroutines-android.kotlin_module: Module was compiled with an incompatible version of Kotlin. The binary version of its metadata is 1.8.0, expected version is 1.6.0.
+e: /home/runner/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.9.10/72812e8a368917ab5c0a5081b56915ffdfec93b7/kotlin-stdlib-1.9.10.jar!/META-INF/kotlin-stdlib.kotlin_module: Module was compiled with an incompatible version of Kotlin. The binary version of its metadata is 1.9.0, expected version is 1.6.0.
+e: /home/runner/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.9.10/72812e8a368917ab5c0a5081b56915ffdfec93b7/kotlin-stdlib-1.9.10.jar!/META-INF/kotlin-stdlib-jdk8.kotlin_module: Module was compiled with an incompatible version of Kotlin. The binary version of its metadata is 1.9.0, expected version is 1.6.0.
+e: /home/runner/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.9.10/72812e8a368917ab5c0a5081b56915ffdfec93b7/kotlin-stdlib-1.9.10.jar!/META-INF/kotlin-stdlib-jdk7.kotlin_module: Module was compiled with an incompatible version of Kotlin. The binary version of its metadata is 1.9.0, expected version is 1.6.0.
+e: /home/runner/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.9.10/dafaf2c27f27c09220cee312df10917d9a5d97ce/kotlin-stdlib-common-1.9.10.jar!/META-INF/kotlin-stdlib-common.kotlin_module: Module was compiled with an incompatible version of Kotlin. The binary version of its metadata is 1.9.0, expected version is 1.6.0.
+Running Gradle task 'assembleRelease'...                          314.5s
+✓ Built build/app/outputs/flutter-apk/app-arm64-v8a-release.apk (29.2MB)
+
+### lib.log tail ###
+  [0m[0m[1m[38;5;12m|[0m
+[0m[1m[38;5;12m673[0m[0m [0m[0m[1m[38;5;12m|[0m[0m [0m[0m    fn special_to_proto(d: Vec<u8>, s: String) -> Clipboard {[0m
+[0m    [0m[0m[1m[38;5;12m| [0m[0m       [0m[0m[1m[33m^^^^^^^^^^^^^^^^[0m
+
+[0m[1m[33mwarning[0m[0m[1m: function `get_custom_server_from_config_string` is never used[0m
+[0m  [0m[0m[1m[38;5;12m--> [0m[0msrc/custom_server.rs:21:4[0m
+[0m   [0m[0m[1m[38;5;12m|[0m
+[0m[1m[38;5;12m21[0m[0m [0m[0m[1m[38;5;12m|[0m[0m [0m[0mfn get_custom_server_from_config_string(s: &str) -> ResultType<CustomServer> {[0m
+[0m   [0m[0m[1m[38;5;12m| [0m[0m   [0m[0m[1m[33m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+
+[0m[1m[33mwarning[0m[0m[1m: function `get_custom_server_from_string` is never used[0m
+[0m  [0m[0m[1m[38;5;12m--> [0m[0msrc/custom_server.rs:39:8[0m
+[0m   [0m[0m[1m[38;5;12m|[0m
+[0m[1m[38;5;12m39[0m[0m [0m[0m[1m[38;5;12m|[0m[0m [0m[0mpub fn get_custom_server_from_string(s: &str) -> ResultType<CustomServer> {[0m
+[0m   [0m[0m[1m[38;5;12m| [0m[0m       [0m[0m[1m[33m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+
+[0m[1m[33mwarning[0m[0m[1m: function `handle_read_jobs_tick` is never used[0m
+[0m    [0m[0m[1m[38;5;12m--> [0m[0msrc/ui_cm_interface.rs:1343:10[0m
+[0m     [0m[0m[1m[38;5;12m|[0m
+[0m[1m[38;5;12m1343[0m[0m [0m[0m[1m[38;5;12m|[0m[0m [0m[0masync fn handle_read_jobs_tick([0m
+[0m     [0m[0m[1m[38;5;12m| [0m[0m         [0m[0m[1m[33m^^^^^^^^^^^^^^^^^^^^^[0m
+
+[0m[1m[33mwarning[0m[0m[1m: function `init_read_job_for_cm` is never used[0m
+[0m    [0m[0m[1m[38;5;12m--> [0m[0msrc/ui_cm_interface.rs:1442:10[0m
+[0m     [0m[0m[1m[38;5;12m|[0m
+[0m[1m[38;5;12m1442[0m[0m [0m[0m[1m[38;5;12m|[0m[0m [0m[0masync fn init_read_job_for_cm([0m
+[0m     [0m[0m[1m[38;5;12m| [0m[0m         [0m[0m[1m[33m^^^^^^^^^^^^^^^^^^^^[0m
+
+[0m[1m[33mwarning[0m[0m[1m: field `finished` is never read[0m
+[0m  [0m[0m[1m[38;5;12m--> [0m[0msrc/hbbs_http/downloader.rs:45:5[0m
+[0m   [0m[0m[1m[38;5;12m|[0m
+[0m[1m[38;5;12m38[0m[0m [0m[0m[1m[38;5;12m|[0m[0m [0m[0mstruct Downloader {[0m
+[0m   [0m[0m[1m[38;5;12m| [0m[0m       [0m[0m[1m[38;5;12m----------[0m[0m [0m[0m[1m[38;5;12mfield in this struct[0m
+[0m[1m[38;5;12m...[0m
+[0m[1m[38;5;12m45[0m[0m [0m[0m[1m[38;5;12m|[0m[0m [0m[0m    finished: bool,[0m
+[0m   [0m[0m[1m[38;5;12m| [0m[0m    [0m[0m[1m[33m^^^^^^^^[0m
+
+[0m[1m[33mwarning[0m[0m[1m: function `download_file` is never used[0m
+[0m  [0m[0m[1m[38;5;12m--> [0m[0msrc/hbbs_http/downloader.rs:50:8[0m
+[0m   [0m[0m[1m[38;5;12m|[0m
+[0m[1m[38;5;12m50[0m[0m [0m[0m[1m[38;5;12m|[0m[0m [0m[0mpub fn download_file([0m
+[0m   [0m[0m[1m[38;5;12m| [0m[0m       [0m[0m[1m[33m^^^^^^^^^^^^^[0m
+
+[0m[1m[33mwarning[0m[0m[1m: function `do_download` is never used[0m
+[0m   [0m[0m[1m[38;5;12m--> [0m[0msrc/hbbs_http/downloader.rs:163:10[0m
+[0m    [0m[0m[1m[38;5;12m|[0m
+[0m[1m[38;5;12m163[0m[0m [0m[0m[1m[38;5;12m|[0m[0m [0m[0masync fn do_download([0m
+[0m    [0m[0m[1m[38;5;12m| [0m[0m         [0m[0m[1m[33m^^^^^^^^^^^[0m
+
+[0m[1m[33mwarning[0m[0m[1m: function `create_http_client_async_with_url` is never used[0m
+[0m   [0m[0m[1m[38;5;12m--> [0m[0msrc/hbbs_http/http_client.rs:232:14[0m
+[0m    [0m[0m[1m[38;5;12m|[0m
+[0m[1m[38;5;12m232[0m[0m [0m[0m[1m[38;5;12m|[0m[0m [0m[0mpub async fn create_http_client_async_with_url(url: &str) -> AsyncClient {[0m
+[0m    [0m[0m[1m[38;5;12m| [0m[0m             [0m[0m[1m[33m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+
+[0m[1m[33mwarning[0m[0m[1m: function `create_http_client_async_with_url_` is never used[0m
+[0m   [0m[0m[1m[38;5;12m--> [0m[0msrc/hbbs_http/http_client.rs:251:10[0m
+[0m    [0m[0m[1m[38;5;12m|[0m
+[0m[1m[38;5;12m251[0m[0m [0m[0m[1m[38;5;12m|[0m[0m [0m[0masync fn create_http_client_async_with_url_([0m
+[0m    [0m[0m[1m[38;5;12m| [0m[0m         [0m[0m[1m[33m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+
+[1m[33mwarning[0m[1m:[0m `rustdesk` (lib) generated 59 warnings (run `cargo fix --lib -p rustdesk` to apply 25 suggestions)
+[0m[1m[33mwarning[0m[0m[1m: unused import: `librustdesk::*`[0m
+[0m [0m[0m[1m[38;5;12m--> [0m[0msrc/service.rs:1:5[0m
+[0m  [0m[0m[1m[38;5;12m|[0m
+[0m[1m[38;5;12m1[0m[0m [0m[0m[1m[38;5;12m|[0m[0m [0m[0muse librustdesk::*;[0m
+[0m  [0m[0m[1m[38;5;12m| [0m[0m    [0m[0m[1m[33m^^^^^^^^^^^^^^[0m
+[0m  [0m[0m[1m[38;5;12m|[0m
+[0m  [0m[0m[1m[38;5;12m= [0m[0m[1mnote[0m[0m: `#[warn(unused_imports)]` on by default[0m
+
+[1m[33mwarning[0m[1m:[0m `rustdesk` (bin "service") generated 1 warning (run `cargo fix --bin "service"` to apply 1 suggestion)
+[1m[32m    Finished[0m release [optimized] target(s) in 9m 14s
